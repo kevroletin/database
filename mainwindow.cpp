@@ -20,27 +20,40 @@ bool MainWindow::ConfigureDatabase()
     return true;
 }
 
+void MainWindow::CreateToolbar()
+{
+    toolBar = new DbActionsToolbar;
+    addToolBar(toolBar);
+}
+
+void MainWindow::CreateActions()
+{
+    exitAct = new QAction(tr("E&xit"), this);
+    connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
+
+    aboutAct = new QAction(tr("About"), this);
+    connect(aboutAct, SIGNAL(triggered()), this, SLOT(showAboutDialog()));
+}
+
 void MainWindow::CreateMenus()
 {
     fileMenu = menuBar()->addMenu(tr("&File"));
-
-    exitAct = new QAction(tr("E&xit"), this);
     fileMenu->addAction(exitAct);
-    connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
 
     helpMenu = menuBar()->addMenu(tr("&Help"));
-
-    aboutAct = new QAction(tr("About"), this);
     helpMenu->addAction(aboutAct);
-    connect(aboutAct, SIGNAL(triggered()), this, SLOT(showAboutDialog()));
 }
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
+    ConfigureDatabase();
+    CreateActions();
+    CreateToolbar();
+    CreateMenus();
+
     tabInterface = new TabInterfaceWidget;
     setCentralWidget(tabInterface);
-    CreateMenus();
     if (!ConfigureDatabase()) {
         // :TODO: show good error dscription for user and save error in logs
         QMessageBox::critical(0, qApp->tr("Cannot open database"),
@@ -53,5 +66,4 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
-
 }

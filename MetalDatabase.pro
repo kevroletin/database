@@ -13,8 +13,12 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     tabinterfacewidget.cpp \
-    Dialogs/aboutdialog.cpp
+    dialogs/aboutdialog.cpp \
+    tableconfigurator.cpp \
+    dbactionstoolbar.cpp
 
 HEADERS  += mainwindow.h \
     tabinterfacewidget.h \
-    Dialogs/aboutdialog.h
+    dialogs/aboutdialog.h \
+    tableconfigurator.h \
+    dbactionstoolbar.h
