@@ -15,7 +15,7 @@ private:
     void ConnfigureTabs();
 
     DbActionsToolbar* dbActTb;
-    PeopleTable* peopleTable;
+    CarsTable* peopleTable;
 
 signals:
 

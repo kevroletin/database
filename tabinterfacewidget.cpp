@@ -14,7 +14,7 @@ TabInterfaceWidget::~TabInterfaceWidget()
 
 void TabInterfaceWidget::ConnfigureTabs()
 {
-    peopleTable = new PeopleTable(dbActTb);
+    peopleTable = new CarsTable(dbActTb);
 //    peopleTable->CreateView();
     addTab(peopleTable->GetView(), peopleTable->GetTitle());
 //    peopleTable->GetModel()->insertRow(3);
@@ -22,14 +22,16 @@ void TabInterfaceWidget::ConnfigureTabs()
             peopleTable, SLOT(AddRow()));
     connect(dbActTb->deleteRowAct, SIGNAL(triggered()),
             peopleTable, SLOT(DeleteRow()));
-    connect(dbActTb->nextRowAct, SIGNAL(triggered()),
-            peopleTable, SLOT(NextRow()));
     connect(dbActTb->prevRowAct, SIGNAL(triggered()),
             peopleTable, SLOT(PrevRow()));
     connect(dbActTb->firstRowAct, SIGNAL(triggered()),
             peopleTable, SLOT(FirstRow()));
     connect(dbActTb->lastRowAct, SIGNAL(triggered()),
             peopleTable, SLOT(LastRow()));
+    connect(dbActTb->nextRowAct, SIGNAL(triggered()),
+            peopleTable, SLOT(NextRow()));
+    connect(dbActTb->openCardAct, SIGNAL(triggered()),
+            peopleTable, SLOT(OpenCard()));
     connect(dbActTb->revertAct, SIGNAL(triggered()),
             peopleTable, SLOT(Revert()));
     connect(dbActTb->submitAct, SIGNAL(triggered()),

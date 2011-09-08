@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QtGui>
 #include <QtSql>
+#include "cards/cars.h"
 #include "dbactionstoolbar.h"
 
 class TableConfigurator : public QObject
@@ -22,6 +23,7 @@ protected:
     virtual void CreateView();
     void Initialize();
 
+    QDialog* card;
     QTableView *view;
     DbActionsToolbar* dbActTb;
     QSqlRelationalTableModel* model;
@@ -32,15 +34,16 @@ public slots:
     void FirstRow();
     void LastRow();
     void NextRow();
+    void OpenCard();
     void PrevRow();
     void Revert();
     void Submit();
 };
 
-class PeopleTable : public TableConfigurator
+class CarsTable : public TableConfigurator
 {
 public:
-    PeopleTable(DbActionsToolbar* dbActTb, QObject *parent = 0);
+    CarsTable(DbActionsToolbar* dbActTb, QObject *parent = 0);
     QString GetTitle() { return "Employee"; }
     virtual QString GetTableName() { return "employee"; }
 

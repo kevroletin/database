@@ -15,10 +15,12 @@ SOURCES += main.cpp\
     tabinterfacewidget.cpp \
     dialogs/aboutdialog.cpp \
     tableconfigurator.cpp \
-    dbactionstoolbar.cpp
+    dbactionstoolbar.cpp \
+    cards/cars.cpp
 
 HEADERS  += mainwindow.h \
     tabinterfacewidget.h \
     dialogs/aboutdialog.h \
     tableconfigurator.h \
-    dbactionstoolbar.h
+    dbactionstoolbar.h \
+    cards/cars.h

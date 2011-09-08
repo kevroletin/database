@@ -16,9 +16,9 @@ void TableConfigurator::CreateView()
 
 void TableConfigurator::Initialize()
 {
-    CreateCard();
     CreateModel();
     CreateView();
+    CreateCard();
 }
 
 void TableConfigurator::AddRow()
@@ -37,15 +37,23 @@ void TableConfigurator::FirstRow()
 {
     view->setCurrentIndex(model->index(0, 0, QModelIndex()));
 }
+
 void TableConfigurator::LastRow()
 {
     view->setCurrentIndex(model->index(model->rowCount(view->rootIndex()) - 1, 0, QModelIndex()));
 }
+
 void TableConfigurator::NextRow()
 {
     view->setCurrentIndex(model->index(view->currentIndex().row() + 1, 0, QModelIndex()));
     if (view->currentIndex().row() < 0 ) FirstRow();
 }
+
+void TableConfigurator::OpenCard()
+{
+    card->show();
+}
+
 void TableConfigurator::PrevRow()
 {
     int index = view->currentIndex().row() - 1;
@@ -75,18 +83,41 @@ void TableConfigurator::Submit()
     }
 }
 
-PeopleTable::PeopleTable(DbActionsToolbar* dbActTb, QObject*) :
+CarsTable::CarsTable(DbActionsToolbar* dbActTb, QObject*) :
     TableConfigurator(dbActTb)
 {
     Initialize();
 }
 
-void PeopleTable::CreateCard()
+void CarsTable::CreateCard()
 {
+    card = new QDialog(view);
+    card->setWindowTitle(GetTitle());
+    CarsCardLayout* cardLayout = new CarsCardLayout;
 
+    QPushButton* okButton = new QPushButton("OK");
+    QPushButton* cancelButton = new QPushButton("Cancel");
+
+    QGridLayout *buttonLayout = new QGridLayout;
+    buttonLayout->setColumnStretch(2, 2);
+    buttonLayout->addWidget(okButton, 0, 0);
+    buttonLayout->addWidget(cancelButton, 0, 1);
+
+//    cardLayout->addLayout(buttonLayout, 2, 1, Qt::AlignRight);
+
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->addLayout(cardLayout);
+    mainLayout->addLayout(buttonLayout);
+    card->setLayout(mainLayout);
+
+    connect(okButton, SIGNAL(clicked()),
+            card, SLOT(accept()));
+
+    connect(cancelButton, SIGNAL(clicked()),
+            card, SLOT(reject()));
 }
 
-void PeopleTable::CreateModel()
+void CarsTable::CreateModel()
 {
     model = new QSqlRelationalTableModel;
     model->setTable("employee");
@@ -102,6 +133,4 @@ void PeopleTable::CreateModel()
 
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     model->select();
-
-    CreateView();
 }
