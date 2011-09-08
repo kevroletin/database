@@ -11,14 +11,17 @@ class TableConfigurator : public QObject
     Q_OBJECT
 public:
     TableConfigurator(DbActionsToolbar* dbActTb, QObject *parent = 0);
-    QTableView* CreateView();
     QString GetTitle() { return ""; }
     virtual QString GetTableName() { return ""; }
     QTableView* GetView() { return view; }
     QSqlRelationalTableModel* GetModel() { return model; }
 
 protected:
-    QDataWidgetMapper* mapper;
+    virtual void CreateCard() = 0;
+    virtual void CreateModel() = 0;
+    virtual void CreateView();
+    void Initialize();
+
     QTableView *view;
     DbActionsToolbar* dbActTb;
     QSqlRelationalTableModel* model;
@@ -40,6 +43,10 @@ public:
     PeopleTable(DbActionsToolbar* dbActTb, QObject *parent = 0);
     QString GetTitle() { return "Employee"; }
     virtual QString GetTableName() { return "employee"; }
+
+protected:
+    virtual void CreateCard();
+    virtual void CreateModel();
 };
 
 #endif // TABLECONFIGURATOR_H

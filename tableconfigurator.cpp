@@ -6,27 +6,32 @@ TableConfigurator::TableConfigurator(DbActionsToolbar* _dbActTb_, QObject* paren
 {
 }
 
-QTableView* TableConfigurator::CreateView()
+void TableConfigurator::CreateView()
 {
     view = new QTableView;
     view->setModel(model);
     view->setItemDelegate(new QSqlRelationalDelegate(view));
     view->setSelectionMode(QAbstractItemView::SingleSelection);
-
-    return view;
 }
 
- void TableConfigurator::AddRow()
- {
-     int index = view->currentIndex().row();
-     if (index < 0) index = 0;
-     model->insertRow(index, view->rootIndex());
- }
+void TableConfigurator::Initialize()
+{
+    CreateCard();
+    CreateModel();
+    CreateView();
+}
 
- void TableConfigurator::DeleteRow()
- {
-     model->removeRow(view->currentIndex().row(), view->rootIndex());
- }
+void TableConfigurator::AddRow()
+{
+    int index = view->currentIndex().row();
+    if (index < 0) index = 0;
+    model->insertRow(index, view->rootIndex());
+}
+
+void TableConfigurator::DeleteRow()
+{
+    model->removeRow(view->currentIndex().row(), view->rootIndex());
+}
 
 void TableConfigurator::FirstRow()
 {
@@ -73,6 +78,16 @@ void TableConfigurator::Submit()
 PeopleTable::PeopleTable(DbActionsToolbar* dbActTb, QObject*) :
     TableConfigurator(dbActTb)
 {
+    Initialize();
+}
+
+void PeopleTable::CreateCard()
+{
+
+}
+
+void PeopleTable::CreateModel()
+{
     model = new QSqlRelationalTableModel;
     model->setTable("employee");
 
@@ -88,6 +103,5 @@ PeopleTable::PeopleTable(DbActionsToolbar* dbActTb, QObject*) :
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     model->select();
 
-    mapper = new QDataWidgetMapper(this);
-    mapper->setModel(model);
+    CreateView();
 }

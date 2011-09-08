@@ -15,7 +15,8 @@ TabInterfaceWidget::~TabInterfaceWidget()
 void TabInterfaceWidget::ConnfigureTabs()
 {
     peopleTable = new PeopleTable(dbActTb);
-    addTab(peopleTable->CreateView(), peopleTable->GetTitle());
+//    peopleTable->CreateView();
+    addTab(peopleTable->GetView(), peopleTable->GetTitle());
 //    peopleTable->GetModel()->insertRow(3);
     connect(dbActTb->addRowAct, SIGNAL(triggered()),
             peopleTable, SLOT(AddRow()));
