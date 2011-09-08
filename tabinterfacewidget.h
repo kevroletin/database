@@ -8,12 +8,13 @@ class TabInterfaceWidget : public QTabWidget
 {
     Q_OBJECT
 public:
-    explicit TabInterfaceWidget(QWidget *parent = 0);
+    explicit TabInterfaceWidget(DbActionsToolbar* _dbActTb_, QWidget *parent = 0);
     ~TabInterfaceWidget();
 
 private:
     void ConnfigureTabs();
 
+    DbActionsToolbar* dbActTb;
     PeopleTable* peopleTable;
 
 signals:

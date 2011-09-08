@@ -3,19 +3,23 @@
 DbActionsToolbar::DbActionsToolbar(QWidget *parent) :
     QToolBar(parent)
 {
-    addRowAct = new QAction(tr("Add row"), this);
-    commitAct = new QAction(tr("Commit"), this);
+    addRowAct = new QAction(tr("Add row"), this);   
     deleteRowAct = new QAction(tr("Delete row"), this);
+    firstRowAct = new QAction(tr("First row"), this);
+    lastRowAct = new QAction(tr("Last row"), this);
     nextRowAct = new QAction(tr("Next row"), this);
     openCardAct = new QAction(tr("Open card"), this);
-    prewRowAct = new QAction(tr("Prev row"), this);
-    rollBackAct = new QAction(tr("Roll back"), this);
+    prevRowAct = new QAction(tr("Prev row"), this);
+    revertAct = new QAction(tr("Revert"), this);
+    submitAct = new QAction(tr("Submit"), this);
 
     addAction(addRowAct);
-    addAction(commitAct);
     addAction(deleteRowAct);
+    addAction(firstRowAct);
+    addAction(lastRowAct);
     addAction(nextRowAct);
     addAction(openCardAct);
-    addAction(prewRowAct);
-    addAction(rollBackAct);
+    addAction(prevRowAct);
+    addAction(revertAct);
+    addAction(submitAct);
 }

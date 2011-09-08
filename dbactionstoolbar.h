@@ -11,12 +11,14 @@ public:
     explicit DbActionsToolbar(QWidget *parent = 0);
 
     QAction* addRowAct;
-    QAction* commitAct;
     QAction* deleteRowAct;
+    QAction* firstRowAct;
+    QAction* lastRowAct;
     QAction* nextRowAct;
     QAction* openCardAct;
-    QAction* prewRowAct;
-    QAction* rollBackAct;
+    QAction* prevRowAct;
+    QAction* revertAct;
+    QAction* submitAct;
 
 signals:
 

@@ -22,8 +22,8 @@ bool MainWindow::ConfigureDatabase()
 
 void MainWindow::CreateToolbar()
 {
-    toolBar = new DbActionsToolbar;
-    addToolBar(toolBar);
+    dbActTb = new DbActionsToolbar;
+    addToolBar(dbActTb);
 }
 
 void MainWindow::CreateActions()
@@ -52,7 +52,7 @@ MainWindow::MainWindow(QWidget *parent)
     CreateToolbar();
     CreateMenus();
 
-    tabInterface = new TabInterfaceWidget;
+    tabInterface = new TabInterfaceWidget(dbActTb);
     setCentralWidget(tabInterface);
     if (!ConfigureDatabase()) {
         // :TODO: show good error dscription for user and save error in logs

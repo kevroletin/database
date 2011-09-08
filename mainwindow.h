@@ -27,7 +27,7 @@ public:
     QAction* exitAct;
     QAction* aboutAct;
 
-    QToolBar* toolBar;
+     DbActionsToolbar* dbActTb;
 
 private:
     bool ConfigureDatabase();
