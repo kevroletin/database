@@ -1,7 +1,9 @@
 BEGIN;
 
-INSERT INTO cars(brand, photo) VALUES(
-  "Жигули",
+INSERT INTO cars(owner_id, brand, serial_number, photo) VALUES(
+  1, 
+  'Жигули',
+  'AAT20625',
   E'\\x
 5089 474e 0a0d 0a1a 0000 0d00 4849 5244
 0000 0600 0000 0600 0208 0000 6f00 78ae
@@ -10,8 +12,10 @@ INSERT INTO cars(brand, photo) VALUES(
 0000 4549 444e 42ae 8260'
 );
 
-INSERT INTO cars(brand, photo) VALUES(
-  "Ёмобиль",
+INSERT INTO cars(owner_id, brand, serial_number, photo) VALUES(
+  2,
+  'Ёмобиль',
+  'EPT22125',
   E'\\x
 5089 474e 0a0d 0a1a 0000 0d00 4849 5244
 0000 0700 0000 0800 0308 0000 0200 15da

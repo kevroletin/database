@@ -14,16 +14,16 @@ help :
 create_tables : 
 	psql -f tables.sql $(DB) $(DBUSER)
 
-populate : cars passports customers
+populate : passports customers cars
 
-cars :
-	psql -f populate/cars.sql $(DB) $(DBUSER)
+passports :
+	psql -f populate/passports.sql $(DB) $(DBUSER)	
 
 customers :
 	psql -f populate/customers.sql $(DB) $(DBUSER)	
 
-passports :
-	psql -f populate/passports.sql $(DB) $(DBUSER)	
+cars :
+	psql -f populate/cars.sql $(DB) $(DBUSER)
 
 clear : 
 	psql -f clear.sql $(DB) $(DBUSER) 2> /dev/null 
