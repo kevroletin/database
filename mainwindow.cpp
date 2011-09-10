@@ -7,7 +7,6 @@ void MainWindow::showAboutDialog()
     aDialog.exec();
 }
 
-
 bool MainWindow::ConfigureDatabase()
 {
     // :TODO: read database configuration from file
@@ -53,6 +52,7 @@ MainWindow::MainWindow(QWidget *parent)
     CreateMenus();
 
     tabInterface = new TabInterfaceWidget(dbActTb);
+    connect(tabInterface, SIGNAL(currentChanged(int)), this, SLOT(ConnectDbAct(int)));
     setCentralWidget(tabInterface);
     if (!ConfigureDatabase()) {
         // :TODO: show good error dscription for user and save error in logs

@@ -12,8 +12,8 @@ class TableConfigurator : public QObject
     Q_OBJECT
 public:
     TableConfigurator(DbActionsToolbar* dbActTb, QObject *parent = 0);
-    QString GetTitle() { return ""; }
-    virtual QString GetTableName() { return ""; }
+    virtual QString GetTitle() = 0;
+    virtual QString GetTableName() = 0;
     QTableView* GetView() { return view; }
     QSqlRelationalTableModel* GetModel() { return model; }
 
@@ -43,9 +43,21 @@ public slots:
 class CarsTable : public TableConfigurator
 {
 public:
-    CarsTable(DbActionsToolbar* dbActTb, QObject *parent = 0);
-    QString GetTitle() { return "Employee"; }
-    virtual QString GetTableName() { return "employee"; }
+    CarsTable(DbActionsToolbar* dbActTb, QObject* parent = 0);
+    virtual QString GetTitle() { return "Cars"; }
+    virtual QString GetTableName() { return "cars"; }
+
+protected:
+    virtual void CreateCard();
+    virtual void CreateModel();
+};
+
+class CustomersTable : public TableConfigurator
+{
+public:
+    CustomersTable(DbActionsToolbar* dbActTb, QObject* parent = 0);
+    virtual QString GetTitle() { return "Customers"; }
+    virtual QString GetTableName() { return "customers"; }
 
 protected:
     virtual void CreateCard();

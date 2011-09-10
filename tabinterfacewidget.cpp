@@ -4,7 +4,11 @@ TabInterfaceWidget::TabInterfaceWidget(DbActionsToolbar* _dbActTb_, QWidget *par
     QTabWidget(parent),
     dbActTb(_dbActTb_)
 {
+    RegisterTables();
     ConnfigureTabs();
+    connect(this, SIGNAL(currentChanged(int)),
+            this, SLOT(ConnectDbActions(int)));
+    ConnectDbActions(0);
 }
 
 TabInterfaceWidget::~TabInterfaceWidget()
@@ -14,29 +18,61 @@ TabInterfaceWidget::~TabInterfaceWidget()
 
 void TabInterfaceWidget::ConnfigureTabs()
 {
-    peopleTable = new CarsTable(dbActTb);
-//    peopleTable->CreateView();
-    addTab(peopleTable->GetView(), peopleTable->GetTitle());
-//    peopleTable->GetModel()->insertRow(3);
+    for (int i = 0; i < tables.size(); ++i)
+    {
+        addTab(tables[i]->GetView(), tables[i]->GetTitle());
+    }
+}
+
+void TabInterfaceWidget::ConnectDbActions(int table_index)
+{
+    static TableConfigurator* previousTable = NULL;
+    TableConfigurator* currentTable = tables[table_index];
+
+//I think this code duplication is better than create macros or little function:
+    disconnect(dbActTb->addRowAct, 0, previousTable, 0);
     connect(dbActTb->addRowAct, SIGNAL(triggered()),
-            peopleTable, SLOT(AddRow()));
+            currentTable, SLOT(AddRow()));
+
+    disconnect(dbActTb->deleteRowAct, 0, previousTable, 0);
     connect(dbActTb->deleteRowAct, SIGNAL(triggered()),
-            peopleTable, SLOT(DeleteRow()));
+            currentTable, SLOT(DeleteRow()));
+
+    disconnect(dbActTb->prevRowAct, 0, previousTable, 0);
     connect(dbActTb->prevRowAct, SIGNAL(triggered()),
-            peopleTable, SLOT(PrevRow()));
+            currentTable, SLOT(PrevRow()));
+
+    disconnect(dbActTb->firstRowAct, 0, previousTable, 0);
     connect(dbActTb->firstRowAct, SIGNAL(triggered()),
-            peopleTable, SLOT(FirstRow()));
-    connect(dbActTb->lastRowAct, SIGNAL(triggered()),
-            peopleTable, SLOT(LastRow()));
+            currentTable, SLOT(FirstRow()));
+
+    disconnect(dbActTb->nextRowAct, 0, previousTable, 0);
     connect(dbActTb->nextRowAct, SIGNAL(triggered()),
-            peopleTable, SLOT(NextRow()));
+            currentTable, SLOT(NextRow()));
+
+    disconnect(dbActTb->lastRowAct, 0, previousTable, 0);
+    connect(dbActTb->lastRowAct, SIGNAL(triggered()),
+            currentTable, SLOT(LastRow()));
+
+    disconnect(dbActTb->openCardAct, 0, previousTable, 0);
     connect(dbActTb->openCardAct, SIGNAL(triggered()),
-            peopleTable, SLOT(OpenCard()));
+            currentTable, SLOT(OpenCard()));
+
+    disconnect(dbActTb->revertAct, 0, previousTable, 0);
     connect(dbActTb->revertAct, SIGNAL(triggered()),
-            peopleTable, SLOT(Revert()));
+            currentTable, SLOT(Revert()));
+
+    disconnect(dbActTb->submitAct, 0, previousTable, 0);
     connect(dbActTb->submitAct, SIGNAL(triggered()),
-            peopleTable, SLOT(Submit()));
+            currentTable, SLOT(Submit()));
 
+    previousTable = currentTable;
+}
 
-//    peopleTable->GetView()->setCurrentIndex();
+void TabInterfaceWidget::RegisterTables()
+{
+    peopleTable = new CarsTable(dbActTb);
+    customersTable = new CustomersTable(dbActTb);
+
+    tables << peopleTable << customersTable;
 }

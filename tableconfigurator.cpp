@@ -17,6 +17,8 @@ void TableConfigurator::CreateView()
 void TableConfigurator::Initialize()
 {
     CreateModel();
+    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    model->select();
     CreateView();
     CreateCard();
 }
@@ -120,17 +122,32 @@ void CarsTable::CreateCard()
 void CarsTable::CreateModel()
 {
     model = new QSqlRelationalTableModel;
-    model->setTable("employee");
+    model->setTable(GetTableName());
 
-    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
-    model->setRelation(2, QSqlRelation("city", "id", "name"));
-    model->setRelation(3, QSqlRelation("country", "id", "name"));
+    model->setRelation(1, QSqlRelation("customer_passports", "id", "name"));
 
     model->setHeaderData(0, Qt::Horizontal, QObject::tr("ID"));
-    model->setHeaderData(1, Qt::Horizontal, QObject::tr("Name"));
-    model->setHeaderData(2, Qt::Horizontal, QObject::tr("City"));
-    model->setHeaderData(3, Qt::Horizontal, QObject::tr("Country"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("OWNER"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("BRAND"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("SERIAL"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("PHOTO"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("NUMBER PHOTO"));
+}
 
-    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
-    model->select();
+CustomersTable::CustomersTable(DbActionsToolbar* dbActTb, QObject*) :
+    TableConfigurator(dbActTb)
+{
+    Initialize();
+}
+
+void CustomersTable::CreateCard()
+{
+}
+
+void CustomersTable::CreateModel()
+{
+    model = new QSqlRelationalTableModel;
+    model->setTable(GetTableName());
+
+    model->setRelation(1, QSqlRelation("customer_passports", "id", "name"));
 }

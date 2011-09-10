@@ -13,13 +13,15 @@ public:
 
 private:
     void ConnfigureTabs();
+    void RegisterTables();
 
     DbActionsToolbar* dbActTb;
     CarsTable* peopleTable;
-
-signals:
+    CustomersTable* customersTable;
+    QList<TableConfigurator*> tables;
 
 public slots:
+    void ConnectDbActions(int table_index);
 
 };
 

@@ -41,4 +41,11 @@ CREATE TABLE cars (
   number_photo BYTEA
 );
 
+CREATE VIEW customer_passports AS(
+  SELECT c.id, 
+       trim(p.second_name||' '||p.first_name||' '||p.middle_name) as "name" 
+  FROM customers c
+    JOIN passports p ON c.passport_id = p.id
+);
+
 COMMIT;
