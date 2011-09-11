@@ -1,0 +1,16 @@
+Установка:
+
+1) База данных:
+      - сервер PostgreSQL на локальной машине с доступоме через localhost
+      - пользователь postgres без пароля и база данных postgres
+      - создать таблицы:
+          - cd database/
+          - make
+          [- make rebuild для пересоздания базы данных]
+
+2) Приложение:
+     - qmake
+     - make
+     - ./MetalDatabase
+
+
