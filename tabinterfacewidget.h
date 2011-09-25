@@ -16,7 +16,7 @@ private:
     void RegisterTables();
 
     DbActionsToolbar* dbActTb;
-    CarsTable* peopleTable;
+    CarsTable* carsTable;
     CustomersTable* customersTable;
     QList<TableConfigurator*> tables;
 

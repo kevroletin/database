@@ -16,11 +16,13 @@ SOURCES += main.cpp\
     dialogs/aboutdialog.cpp \
     tableconfigurator.cpp \
     dbactionstoolbar.cpp \
-    cards/cars.cpp
+    cards/cars.cpp \
+    picturedelegate.cpp
 
 HEADERS  += mainwindow.h \
     tabinterfacewidget.h \
     dialogs/aboutdialog.h \
     tableconfigurator.h \
     dbactionstoolbar.h \
-    cards/cars.h
+    cards/cars.h \
+    picturedelegate.h

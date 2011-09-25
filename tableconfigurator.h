@@ -6,6 +6,7 @@
 #include <QtSql>
 #include "cards/cars.h"
 #include "dbactionstoolbar.h"
+#include "picturedelegate.h"
 
 class TableConfigurator : public QObject
 {

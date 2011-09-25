@@ -30,7 +30,7 @@ public:
     DbActionsToolbar* dbActTb;
 
 private:
-    bool ConfigureDatabase();
+    bool ConnectDatabase();
     void CreateActions();
     void CreateMenus();
     void CreateToolbar();

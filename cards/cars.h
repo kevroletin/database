@@ -4,6 +4,7 @@
 #include <QLayout>
 #include <QDialog>
 #include <QtGui>
+#include <QtSql>
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -16,12 +17,10 @@ class CarsCardLayout : public QGridLayout
 {
     Q_OBJECT
 public:
-    explicit CarsCardLayout(QWidget *parent = 0);
-
-    QLineEdit *nameText;
+    explicit CarsCardLayout(QSqlRelationalTableModel* model, QWidget *parent = 0);
 
 private:
-    QLabel *nameLabel;
+    QSqlRelationalTableModel* model;
 
 
 signals:

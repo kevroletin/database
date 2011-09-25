@@ -9,11 +9,13 @@ TabInterfaceWidget::TabInterfaceWidget(DbActionsToolbar* _dbActTb_, QWidget *par
     connect(this, SIGNAL(currentChanged(int)),
             this, SLOT(ConnectDbActions(int)));
     ConnectDbActions(0);
+
+    // DEBUG:
+    //carsTable->OpenCard();
 }
 
 TabInterfaceWidget::~TabInterfaceWidget()
 {
-//    peopleTable->GetModel()->submitAll();
 }
 
 void TabInterfaceWidget::ConnfigureTabs()
@@ -71,8 +73,8 @@ void TabInterfaceWidget::ConnectDbActions(int table_index)
 
 void TabInterfaceWidget::RegisterTables()
 {
-    peopleTable = new CarsTable(dbActTb);
+    carsTable = new CarsTable(dbActTb);
     customersTable = new CustomersTable(dbActTb);
 
-    tables << peopleTable << customersTable;
+    tables << carsTable << customersTable;
 }

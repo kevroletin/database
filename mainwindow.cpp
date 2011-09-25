@@ -7,7 +7,7 @@ void MainWindow::showAboutDialog()
     aDialog.exec();
 }
 
-bool MainWindow::ConfigureDatabase()
+bool MainWindow::ConnectDatabase()
 {
     // :TODO: read database configuration from file
     // :TODO: read password from user interface or save encripted
@@ -15,6 +15,8 @@ bool MainWindow::ConfigureDatabase()
     db.setUserName("postgres");
     db.setDatabaseName("postgres");
     db.setHostName("localhost");
+
+    db.open();
 
     return true;
 }
@@ -46,15 +48,15 @@ void MainWindow::CreateMenus()
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-    ConfigureDatabase();
+    ConnectDatabase();
     CreateActions();
     CreateToolbar();
     CreateMenus();
 
     tabInterface = new TabInterfaceWidget(dbActTb);
-    connect(tabInterface, SIGNAL(currentChanged(int)), this, SLOT(ConnectDbAct(int)));
+    connect(tabInterface, SIGNAL(currentChanged(int)), tabInterface, SLOT(ConnectDbActions(int)));
     setCentralWidget(tabInterface);
-    if (!ConfigureDatabase()) {
+    if (!ConnectDatabase()) {
         // :TODO: show good error dscription for user and save error in logs
         QMessageBox::critical(0, qApp->tr("Cannot open database"),
                               "some error occured", QMessageBox::Cancel);
