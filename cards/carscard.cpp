@@ -1,25 +1,26 @@
-#include "cars.h"
+#include "cardconfigurator.h"
 #include <QtCore>
 #include <QtGui>
 
-CarsCardLayout::CarsCardLayout(QSqlRelationalTableModel* _model_, QWidget *parent) :
-    QGridLayout(parent),
-    model(_model_)
+CarsCard::CarsCard(QSqlRelationalTableModel* _model_, QObject* parent) :
+    CardConfigurator(_model_, parent)
 {
-    QDataWidgetMapper* mapper = new QDataWidgetMapper;
-    mapper->setModel(model);
-    mapper->setItemDelegate(new QSqlRelationalDelegate(this));
+    CreateLayout();
+}
 
+void CarsCard::CreateLayout()
+{
+    QGridLayout* l = new QGridLayout;
+    layout = l;
     // TODO: move table metainformation in separate entity
     QStringList names;
     names << "Id" << "Name" << "Brand" << "Serial number";
     for (int i = 0; i < names.size(); ++i) {
-        addWidget(new QLabel(tr(names[i].toAscii())), i, 0);
+        l->addWidget(new QLabel(tr(names[i].toAscii())), i, 0);
     }
 
     QLineEdit* idEdit = new QLineEdit;
     mapper->addMapping(idEdit, model->fieldIndex("id"));
-
 
     QComboBox* nameComboBox = new QComboBox;
     QSqlTableModel *relModel = model->relationModel(1);
@@ -33,8 +34,8 @@ CarsCardLayout::CarsCardLayout(QSqlRelationalTableModel* _model_, QWidget *paren
     mapper->addMapping(serialNumberEdit, model->fieldIndex("serial_number"));
     QGroupBox* photoGroupBox = new QGroupBox(tr("Photo"));
     QVBoxLayout* photoLayout = new QVBoxLayout;
-    QLabel* photoLabel = new QLabel;
-    QPixmap* photoPixmap = new QPixmap;
+    photoLabel = new QLabel;
+    photoPixmap = new QPixmap;
     photoPixmap->load("/home/behemoth/Work/MetalDatabase/img/image.png", "PNG");
     // FIXME: QSqlTableModel can't handle binary data correctly.
     // TODO: QSqlTableModel should be inhereted and fixed.
@@ -48,18 +49,47 @@ CarsCardLayout::CarsCardLayout(QSqlRelationalTableModel* _model_, QWidget *paren
     //    photoPixmap.save(buff, "PNG");
     //    model->setData(model->index(0, 4),
     //                   QVariant(buffer->data()));
+
+    // BUG: causes double free
     photoLabel->setPixmap(*photoPixmap);
+
     photoLayout->addWidget(photoLabel);
     photoGroupBox->setLayout(photoLayout);
+    QPushButton* loadButton = new QPushButton("Load");
+    connect(loadButton, SIGNAL(clicked()), this, SLOT(LoadPicture()));
+    photoLayout->addWidget(loadButton);
+
 
     QGroupBox* numberPhotoGroupBox = new QGroupBox(tr("Number photo"));
 
-    addWidget(idEdit, 0, 1);
-    addWidget(nameComboBox, 1, 1);
-    addWidget(brandEdit, 2, 1);
-    addWidget(serialNumberEdit, 3, 1);
-    addWidget(photoGroupBox, 4, 0, 1, 2);
-    addWidget(photoGroupBox, 4, 0, 1, 2);
+    l->addWidget(idEdit, 0, 1);
+    l->addWidget(nameComboBox, 1, 1);
+    l->addWidget(brandEdit, 2, 1);
+    l->addWidget(serialNumberEdit, 3, 1);
+    l->addWidget(photoGroupBox, 4, 0, 1, 2);
+    l->addWidget(photoGroupBox, 4, 0, 1, 2);
 
-    mapper->toFirst();
+    //mapper->toFirst();
+    mapper->setCurrentIndex(1);
+}
+
+void CarsCard::Submit()
+{
+    mapper->submit();
+    QBuffer buff;
+    photoPixmap->save(&buff, "PNG");
+    model->setData(model->index(mapper->currentIndex(), 4),
+                   QVariant(buff.data()));
+}
+
+void CarsCard::Revert()
+{
+    mapper->revert();
+}
+
+void CarsCard::LoadPicture()
+{
+    QString fileName = QFileDialog::getOpenFileName();
+    photoPixmap->load(fileName, "PNG");
+    photoLabel->setPixmap(*photoPixmap);
 }

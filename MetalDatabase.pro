@@ -14,15 +14,18 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     tabinterfacewidget.cpp \
     dialogs/aboutdialog.cpp \
-    tableconfigurator.cpp \
     dbactionstoolbar.cpp \
-    cards/cars.cpp \
-    picturedelegate.cpp
+    picturedelegate.cpp \
+    tables/carstable.cpp \
+    tables/customerstable.cpp \
+    cards/carscard.cpp \
+    cards/cardconfigurator.cpp \
+    tables/tableconfigurator.cpp
 
 HEADERS  += mainwindow.h \
     tabinterfacewidget.h \
     dialogs/aboutdialog.h \
-    tableconfigurator.h \
     dbactionstoolbar.h \
-    cards/cars.h \
-    picturedelegate.h
+    picturedelegate.h \
+    tables/tableconfigurator.h \
+    cards/cardconfigurator.h

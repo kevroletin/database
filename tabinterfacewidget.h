@@ -2,7 +2,7 @@
 #define TABINTERFACEWIDGET_H
 
 #include <QTabWidget>
-#include "tableconfigurator.h"
+#include "tables/tableconfigurator.h"
 
 class TabInterfaceWidget : public QTabWidget
 {

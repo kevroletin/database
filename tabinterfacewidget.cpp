@@ -58,7 +58,7 @@ void TabInterfaceWidget::ConnectDbActions(int table_index)
 
     disconnect(dbActTb->openCardAct, 0, previousTable, 0);
     connect(dbActTb->openCardAct, SIGNAL(triggered()),
-            currentTable, SLOT(OpenCard()));
+            currentTable, SLOT(OpenDialog()));
 
     disconnect(dbActTb->revertAct, 0, previousTable, 0);
     connect(dbActTb->revertAct, SIGNAL(triggered()),

@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QtGui>
 #include <QtSql>
-#include "cards/cars.h"
+#include "cards/cardconfigurator.h"
 #include "dbactionstoolbar.h"
 #include "picturedelegate.h"
 
@@ -19,12 +19,14 @@ public:
     QSqlRelationalTableModel* GetModel() { return model; }
 
 protected:
+    virtual void CreateDialog() = 0;
     virtual void CreateCard() = 0;
     virtual void CreateModel() = 0;
     virtual void CreateView();
     void Initialize();
 
-    QDialog* card;
+    CardConfigurator* card;
+    QDialog* dialog;
     QTableView *view;
     DbActionsToolbar* dbActTb;
     QSqlRelationalTableModel* model;
@@ -35,7 +37,7 @@ public slots:
     void FirstRow();
     void LastRow();
     void NextRow();
-    void OpenCard();
+    void OpenDialog();
     void PrevRow();
     void Revert();
     void Submit();
@@ -49,6 +51,7 @@ public:
     virtual QString GetTableName() { return "cars"; }
 
 protected:
+    virtual void CreateDialog();
     virtual void CreateCard();
     virtual void CreateModel();
 };
@@ -61,7 +64,8 @@ public:
     virtual QString GetTableName() { return "customers"; }
 
 protected:
-    virtual void CreateCard();
+    virtual void CreateDialog();
+    virtual void CreateCard() { }
     virtual void CreateModel();
 };
 
