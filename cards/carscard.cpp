@@ -59,7 +59,6 @@ void CarsCard::CreateLayout()
     connect(loadButton, SIGNAL(clicked()), this, SLOT(LoadPicture()));
     photoLayout->addWidget(loadButton);
 
-
     QGroupBox* numberPhotoGroupBox = new QGroupBox(tr("Number photo"));
 
     l->addWidget(idEdit, 0, 1);
@@ -74,12 +73,12 @@ void CarsCard::CreateLayout()
 }
 
 void CarsCard::Submit()
-{
-    mapper->submit();
+{    
     QBuffer buff;
     photoPixmap->save(&buff, "PNG");
     model->setData(model->index(mapper->currentIndex(), 4),
                    QVariant(buff.data()));
+    mapper->submit();
 }
 
 void CarsCard::Revert()

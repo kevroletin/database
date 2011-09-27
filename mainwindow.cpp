@@ -56,11 +56,6 @@ MainWindow::MainWindow(QWidget *parent)
     tabInterface = new TabInterfaceWidget(dbActTb);
     connect(tabInterface, SIGNAL(currentChanged(int)), tabInterface, SLOT(ConnectDbActions(int)));
     setCentralWidget(tabInterface);
-    if (!ConnectDatabase()) {
-        // :TODO: show good error dscription for user and save error in logs
-        QMessageBox::critical(0, qApp->tr("Cannot open database"),
-                              "some error occured", QMessageBox::Cancel);
-    }
 
     // :TODO: read config from file
     setWindowTitle(tr("Metal base database"));
