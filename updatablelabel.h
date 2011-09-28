@@ -10,7 +10,6 @@ class UpdatableLabel : public QLabel
     Q_PROPERTY(QByteArray pictureByteArr READ GetPicture WRITE SetPicture)
 
 public:
-    explicit UpdatableLabel(QWidget *parent = 0);
 
     QByteArray GetPicture() { return pictureByteArr; }
     void SetPicture(QByteArray newPicture) {
@@ -35,10 +34,7 @@ public slots:
         pictureByteArr = buff.data();
         setPixmap(pix);
     }
-    bool SavePicture(QString filename = "") {
-        // TOOD:
-        return 0;
-    }
+    bool SavePicture(QString) { /* TODO: */ return 0; }
 };
 
 #endif // UPDATABLELABEL_H

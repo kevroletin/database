@@ -1,7 +1,8 @@
 #include "picturedelegate.h"
 
-PictureDelegate::PictureDelegate(QObject *parent) :
-    QSqlRelationalDelegate(parent)
+PictureDelegate::PictureDelegate(QSet<int> _colomnsToDraw_, QObject *parent) :
+    QSqlRelationalDelegate(parent),
+    colomnsToDraw(_colomnsToDraw_)
 {
 }
 
@@ -9,10 +10,8 @@ PictureDelegate::PictureDelegate(QObject *parent) :
 void PictureDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
            const QModelIndex &index) const
 {
-    //if (qVariantCanConvert<QByteArray>(index.data())) {
-    if (index.column() == 4) {
+    if (colomnsToDraw.contains(index.column())) {
         QImage image;
-//        image.load("/home/behemoth/Work/MetalDatabase/bullet_dn.png", "PNG");
         image.loadFromData(index.data().toByteArray(), "PNG");
         painter->drawImage(option.rect, image);
     } else {

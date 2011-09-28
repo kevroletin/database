@@ -20,8 +20,7 @@ SOURCES += main.cpp\
     tables/customerstable.cpp \
     cards/carscard.cpp \
     cards/cardconfigurator.cpp \
-    tables/tableconfigurator.cpp \
-    cards/updatablelabel.cpp
+    tables/tableconfigurator.cpp
 
 HEADERS  += mainwindow.h \
     tabinterfacewidget.h \

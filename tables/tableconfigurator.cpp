@@ -10,9 +10,11 @@ void TableConfigurator::CreateView()
 {
     view = new QTableView;
     view->setModel(model);
-    //view->setItemDelegate(new QSqlRelationalDelegate(view));
-    view->setItemDelegate(new PictureDelegate(view));
     view->setSelectionMode(QAbstractItemView::SingleSelection);
+
+    QSet<int> colomnsToDraw;
+    colomnsToDraw << 4 << 5;
+    view->setItemDelegate(new PictureDelegate(colomnsToDraw, view));
 }
 
 void TableConfigurator::Initialize()

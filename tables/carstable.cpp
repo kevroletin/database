@@ -20,7 +20,7 @@ void CarsTable::CreateDialog()
     mainLayout->addLayout(cardLayout);
 
 
-    QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok
+    QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Save
                                      | QDialogButtonBox::Cancel);
 
     mainLayout->insertStretch(1, 10);

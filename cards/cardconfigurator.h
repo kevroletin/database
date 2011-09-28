@@ -21,6 +21,7 @@ protected:
     QSqlRelationalTableModel* model;
 
     virtual void CreateLayout() = 0;
+    QVBoxLayout* CreatePotoControls(int colIndex);
 
 signals:
 
@@ -39,8 +40,6 @@ protected:
     virtual void CreateLayout();
 
 private:
-    QPixmap* photoPixmap;
-    UpdatableLabel* photoLabel;
 
 public slots:
     void Submit();
