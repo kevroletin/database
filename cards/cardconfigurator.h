@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QtSql>
 #include <QtGui>
+#include "updatablelabel.h"
 
 class CardConfigurator : public QObject
 {
@@ -39,12 +40,11 @@ protected:
 
 private:
     QPixmap* photoPixmap;
-    QLabel* photoLabel;
+    UpdatableLabel* photoLabel;
 
 public slots:
     void Submit();
     void Revert();
-    void LoadPicture();
 };
 
 #endif // CARDCONFIGURATOR_H

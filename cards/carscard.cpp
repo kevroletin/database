@@ -24,8 +24,10 @@ void CarsCard::CreateLayout()
 
     QComboBox* nameComboBox = new QComboBox;
     QSqlTableModel *relModel = model->relationModel(1);
+
     nameComboBox->setModel(relModel);
     nameComboBox->setModelColumn(relModel->fieldIndex("name"));
+    mapper->addMapping(nameComboBox, 1, "currentIndex");
 
     QLineEdit* brandEdit = new QLineEdit;
     mapper->addMapping(brandEdit, model->fieldIndex("brand"));
@@ -34,29 +36,14 @@ void CarsCard::CreateLayout()
     mapper->addMapping(serialNumberEdit, model->fieldIndex("serial_number"));
     QGroupBox* photoGroupBox = new QGroupBox(tr("Photo"));
     QVBoxLayout* photoLayout = new QVBoxLayout;
-    photoLabel = new QLabel;
-    photoPixmap = new QPixmap;
-    photoPixmap->load("/home/behemoth/Work/MetalDatabase/img/image.png", "PNG");
-    // FIXME: QSqlTableModel can't handle binary data correctly.
-    // TODO: QSqlTableModel should be inhereted and fixed.
-    // TODO: but now QSqlQuery should be used to send picture into database:
-    // TODO:     QSqlQuery q;
-    // TODO:     q.prepare("update cars set (photo) = (:data);");
-    // TODO:     q.bindValue(":data", QVariant(buff.data()));
-    // TODO:     q.exec();
-    //
-    //    photoPixmap->save(buffer, "PNG");
-    //    photoPixmap.save(buff, "PNG");
-    //    model->setData(model->index(0, 4),
-    //                   QVariant(buffer->data()));
+    photoLabel = new UpdatableLabel;
+    mapper->addMapping(photoLabel, 4, "pictureByteArr");
 
-    // BUG: causes double free
-    photoLabel->setPixmap(*photoPixmap);
 
     photoLayout->addWidget(photoLabel);
     photoGroupBox->setLayout(photoLayout);
     QPushButton* loadButton = new QPushButton("Load");
-    connect(loadButton, SIGNAL(clicked()), this, SLOT(LoadPicture()));
+    connect(loadButton, SIGNAL(clicked()), photoLabel, SLOT(LoadPicture()));
     photoLayout->addWidget(loadButton);
 
     QGroupBox* numberPhotoGroupBox = new QGroupBox(tr("Number photo"));
@@ -74,21 +61,10 @@ void CarsCard::CreateLayout()
 
 void CarsCard::Submit()
 {    
-    QBuffer buff;
-    photoPixmap->save(&buff, "PNG");
-    model->setData(model->index(mapper->currentIndex(), 4),
-                   QVariant(buff.data()));
     mapper->submit();
 }
 
 void CarsCard::Revert()
 {
     mapper->revert();
-}
-
-void CarsCard::LoadPicture()
-{
-    QString fileName = QFileDialog::getOpenFileName();
-    photoPixmap->load(fileName, "PNG");
-    photoLabel->setPixmap(*photoPixmap);
 }
