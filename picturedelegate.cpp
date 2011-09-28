@@ -1,4 +1,5 @@
 #include "picturedelegate.h"
+#include <QPainter>
 
 PictureDelegate::PictureDelegate(QSet<int> _colomnsToDraw_, QObject *parent) :
     QSqlRelationalDelegate(parent),

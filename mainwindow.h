@@ -2,9 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QtGui>
-#include <QSqlDatabase>
-#include <QSqlError>
-#include <QSqlQuery>
+
+QT_BEGIN_NAMESPACE
+class QAction;
+class QMenu;
+QT_END_NAMESPACE
 
 #include "dialogs/aboutdialog.h"
 #include "dbactionstoolbar.h"

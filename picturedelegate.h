@@ -2,7 +2,10 @@
 #define PICTUREDELEGATE_H
 
 #include <QSqlRelationalDelegate>
-#include <QPainter>
+
+QT_BEGIN_NAMESPACE
+class QPainter;
+QT_END_NAMESPACE
 
 class PictureDelegate : public QSqlRelationalDelegate
 {

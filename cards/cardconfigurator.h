@@ -2,9 +2,14 @@
 #define CARDCONFIGURATOR_H
 
 #include <QObject>
-#include <QtSql>
-#include <QtGui>
 #include "updatablelabel.h"
+
+QT_BEGIN_NAMESPACE
+class QDataWidgetMapper;
+class QLayout;
+class QSqlRelationalTableModel;
+class QVBoxLayout;
+QT_END_NAMESPACE
 
 class CardConfigurator : public QObject
 {

@@ -2,7 +2,10 @@
 #define DBACTIONSTOOLBAR_H
 
 #include <QToolBar>
-#include <QAction>
+
+QT_BEGIN_NAMESPACE
+class QAction;
+QT_END_NAMESPACE
 
 class DbActionsToolbar : public QToolBar
 {

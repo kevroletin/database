@@ -1,4 +1,7 @@
 #include "mainwindow.h"
+#include <QSqlDatabase>
+#include <QSqlError>
+#include <QSqlQuery>
 
 void MainWindow::showAboutDialog()
 {

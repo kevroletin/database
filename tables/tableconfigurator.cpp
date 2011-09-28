@@ -1,4 +1,6 @@
 #include "tableconfigurator.h"
+#include <QtGui>
+#include <QtSql>
 
 TableConfigurator::TableConfigurator(DbActionsToolbar* _dbActTb_, QObject* parent) :
     QObject(parent),

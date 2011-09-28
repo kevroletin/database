@@ -1,4 +1,6 @@
 #include "cardconfigurator.h"
+#include <QtSql>
+#include <QtGui>
 
 CardConfigurator::CardConfigurator(QSqlRelationalTableModel* _model_, QObject *parent) :
     QObject(parent),

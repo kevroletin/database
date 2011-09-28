@@ -2,8 +2,13 @@
 #define TABLECONFIGURATOR_H
 
 #include <QObject>
-#include <QtGui>
-#include <QtSql>
+
+QT_BEGIN_NAMESPACE
+class QDialog;
+class QSqlRelationalTableModel;
+class QTableView;
+QT_END_NAMESPACE
+
 #include "cards/cardconfigurator.h"
 #include "dbactionstoolbar.h"
 #include "picturedelegate.h"

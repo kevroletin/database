@@ -1,4 +1,5 @@
 #include "dbactionstoolbar.h"
+#include <QAction>
 
 DbActionsToolbar::DbActionsToolbar(QWidget *parent) :
     QToolBar(parent)
