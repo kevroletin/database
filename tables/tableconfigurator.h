@@ -27,7 +27,7 @@ public:
     QSqlRelationalTableModel* GetModel() { return model; }
 
 protected:
-    virtual void CreateDialog() = 0;
+    virtual void CreateDialog();
     virtual void CreateCard() = 0;
     virtual void CreateModel();
     virtual void CreateView();
@@ -58,7 +58,6 @@ public:
     virtual Tables GetTable() { return TABLE_CARS; }
 
 protected:
-    virtual void CreateDialog();
     virtual void CreateCard();
 };
 
@@ -69,9 +68,7 @@ public:
     virtual Tables GetTable() { return TABLE_CUSTOMERS; }
 
 protected:
-    virtual void CreateDialog();
-    virtual void CreateCard() { }
-    virtual void CreateModel();
+    virtual void CreateCard();
 };
 
 #endif // TABLECONFIGURATOR_H

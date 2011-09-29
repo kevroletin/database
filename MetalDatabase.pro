@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     cards/carscard.cpp \
     cards/cardconfigurator.cpp \
     tables/tableconfigurator.cpp \
-    applicationsettings.cpp
+    applicationsettings.cpp \
+    cards/customerscard.cpp
 
 HEADERS  += mainwindow.h \
     tabinterfacewidget.h \

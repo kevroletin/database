@@ -1,4 +1,5 @@
 #include "tableconfigurator.h"
+#include "cards/cardconfigurator.h"
 
 CustomersTable::CustomersTable(DbActionsToolbar* dbActTb, QObject*) :
     TableConfigurator(dbActTb)
@@ -6,15 +7,8 @@ CustomersTable::CustomersTable(DbActionsToolbar* dbActTb, QObject*) :
     Initialize();
 }
 
-void CustomersTable::CreateDialog()
+void CustomersTable::CreateCard()
 {
-}
-
-void CustomersTable::CreateModel()
-{
-    model = new QSqlRelationalTableModel;
-    model->setTable(GetTableName());
-
-    model->setRelation(1, QSqlRelation("customer_passports", "id", "name"));
+    card = new CustomersCard(model);
 }
 

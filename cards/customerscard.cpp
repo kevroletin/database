@@ -3,8 +3,9 @@
 #include <QtGui>
 #include <QtSql>
 
-CarsCard::CarsCard(QSqlRelationalTableModel* _model_, QObject* parent) :
+CustomersCard::CustomersCard(QSqlRelationalTableModel* _model_, QObject* parent) :
     CardConfigurator(_model_, parent)
 {
     CreateLayout();
 }
+

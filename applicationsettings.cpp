@@ -6,6 +6,7 @@ ApplicationSettings::ApplicationSettings(QObject *parent) :
     QObject(parent)
 {   
     ConfigureCarsTable();
+    ConfigureCustomersTable();
 }
 
 Relation ApplicationSettings::rl(QString table, QString name_field)
@@ -39,4 +40,23 @@ void ApplicationSettings::ConfigureCarsTable()
                    << CONTROL_PHOTO
                    << CONTROL_PHOTO;
     t->colomnsToDraw << 4 << 5;
+}
+
+void ApplicationSettings::ConfigureCustomersTable()
+{
+    TableSettings* t = &tableSettings[TABLE_CUSTOMERS];
+
+    t->name = tr("customers");
+    t->alias = tr("Customers");
+
+    t->colonmSizes << 40
+                   << 250
+                   << 250;
+    t->colomnAliases << tr("Id")
+                     << tr("Owner")
+                     << tr("License");
+    t->relations[1] = rl("customer_passports", "name");
+    t->ui_controls << CONTROL_EDIT
+                   << CONTROL_COMBO_BOX
+                   << CONTROL_EDIT;
 }

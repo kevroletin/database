@@ -48,6 +48,34 @@ void TableConfigurator::Initialize()
     CreateDialog();
 }
 
+void TableConfigurator::CreateDialog()
+{
+    // TODO: вынести в инициализацию объекта. Разобраться с виртуальными методами.
+    CreateCard();
+
+    dialog = new QDialog(view);
+    dialog->setWindowTitle(GetTableAlias());
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+
+    QLayout* cardLayout = card->GetLayout();
+    mainLayout->addLayout(cardLayout);
+
+
+    QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Save
+                                     | QDialogButtonBox::Cancel);
+
+    mainLayout->insertStretch(1, 10);
+
+    mainLayout->addWidget(buttonBox);
+    dialog->setLayout(mainLayout);
+
+    connect(buttonBox, SIGNAL(accepted()), card, SLOT(Submit()));
+    connect(buttonBox, SIGNAL(rejected()), card, SLOT(Revert()));
+
+    //connect(buttonBox, SIGNAL(accepted()), card, SLOT(accept()));
+    connect(buttonBox, SIGNAL(rejected()), dialog, SLOT(reject()));
+}
+
 void TableConfigurator::AddRow()
 {
     int index = view->currentIndex().row();

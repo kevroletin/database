@@ -2,6 +2,7 @@
 #define CARDCONFIGURATOR_H
 
 #include <QObject>
+#include "applicationsettings.h"
 #include "updatablelabel.h"
 
 QT_BEGIN_NAMESPACE
@@ -19,13 +20,16 @@ public:
 
     virtual void SetCurrentIndex(int row) { mapper->setCurrentIndex(row); }
     QLayout* GetLayout() { return layout; }
+    virtual Tables GetTable() = 0;
 
 protected:
     QLayout* layout;
     QDataWidgetMapper* mapper;
     QSqlRelationalTableModel* model;
 
-    virtual void CreateLayout() = 0;
+    virtual void CreateLayout();
+    QComboBox* CreateComboBox(int colIndex, QString& fieldToShow);
+    QLineEdit* CreateEdit(int colIndex);
     QVBoxLayout* CreatePotoControls(int colIndex);
 
 signals:
@@ -40,15 +44,15 @@ class CarsCard : public CardConfigurator
     Q_OBJECT
 public:
     CarsCard(QSqlRelationalTableModel* model, QObject *parent = 0);
+    virtual Tables GetTable() { return TABLE_CARS; }
+};
 
-protected:
-    virtual void CreateLayout();
-
-private:
-
-public slots:
-    void Submit();
-    void Revert();
+class CustomersCard : public CardConfigurator
+{
+    Q_OBJECT
+public:
+    CustomersCard(QSqlRelationalTableModel* model, QObject *parent = 0);
+    virtual Tables GetTable() { return TABLE_CUSTOMERS; }
 };
 
 #endif // CARDCONFIGURATOR_H

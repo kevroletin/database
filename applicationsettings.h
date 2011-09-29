@@ -41,6 +41,7 @@ private:
     TableSettings tableSettings[TablesCount];
     inline Relation rl(QString table, QString name_field);
     void ConfigureCarsTable();
+    void ConfigureCustomersTable();
 
 signals:
 

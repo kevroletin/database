@@ -31,7 +31,7 @@ void TabInterfaceWidget::ConnectDbActions(int table_index)
     static TableConfigurator* previousTable = NULL;
     TableConfigurator* currentTable = tables[table_index];
 
-//I think this code duplication is better than create macros or little function:
+// TODO: create little function where:
     disconnect(dbActTb->addRowAct, 0, previousTable, 0);
     connect(dbActTb->addRowAct, SIGNAL(triggered()),
             currentTable, SLOT(AddRow()));
