@@ -1,5 +1,7 @@
 #include "applicationsettings.h"
 
+ApplicationSettings globalSettings;
+
 ApplicationSettings::ApplicationSettings(QObject *parent) :
     QObject(parent)
 {   
@@ -17,14 +19,14 @@ void ApplicationSettings::ConfigureCarsTable()
 
     t->name = tr("cars");
     t->alias = tr("Cars");
-    t->colonmSizes << 20
-                   << 50
-                   << 50
-                   << 50
+    t->colonmSizes << 30
+                   << 300
+                   << 100
+                   << 100
                    << 50
                    << 50;
     t->colomnAliases << tr("Id")
-                     << tr("Name")
+                     << tr("Owner")
                      << tr("Brand")
                      << tr("Serial number")
                      << tr("Photo")

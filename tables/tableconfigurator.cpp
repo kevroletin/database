@@ -1,6 +1,7 @@
 #include "tableconfigurator.h"
 #include <QtGui>
 #include <QtSql>
+#include "applicationsettings.h"
 
 TableConfigurator::TableConfigurator(DbActionsToolbar* _dbActTb_, QObject* parent) :
     QObject(parent),
@@ -14,9 +15,28 @@ void TableConfigurator::CreateView()
     view->setModel(model);
     view->setSelectionMode(QAbstractItemView::SingleSelection);
 
-    QSet<int> colomnsToDraw;
-    colomnsToDraw << 4 << 5;
-    view->setItemDelegate(new PictureDelegate(colomnsToDraw, view));
+    view->setItemDelegate(new PictureDelegate(GetSettings().colomnsToDraw, view));
+
+    for (int i = 0; i < GetSettings().colonmSizes.size(); ++i) {
+        view->setColumnWidth(i, GetSettings().colonmSizes[i]);
+    }
+}
+
+void TableConfigurator::CreateModel()
+{
+    TableSettings& s = GetSettings();
+    model = new QSqlRelationalTableModel;
+    model->setTable(s.name);
+
+    foreach (int col, GetSettings().relations.keys()) {
+        model->setRelation(col, QSqlRelation(s.relations[col].first, /* table name */
+                                             "id",
+                                             s.relations[col].second /* field to show */));
+    }
+
+    for (int i = 0; i < s.colomnAliases.size(); ++i) {
+        model->setHeaderData(i, Qt::Horizontal, s.colomnAliases[i]);
+    }
 }
 
 void TableConfigurator::Initialize()

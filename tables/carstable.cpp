@@ -13,7 +13,7 @@ void CarsTable::CreateDialog()
     CreateCard();
 
     dialog = new QDialog(view);
-    dialog->setWindowTitle(GetTitle());
+    dialog->setWindowTitle(GetTableAlias());
     QVBoxLayout *mainLayout = new QVBoxLayout;
 
     QLayout* cardLayout = card->GetLayout();
@@ -38,22 +38,5 @@ void CarsTable::CreateDialog()
 void CarsTable::CreateCard()
 {
     card = new CarsCard(model);
-}
-
-void CarsTable::CreateModel()
-{
-    model = new QSqlRelationalTableModel;
-    model->setTable(GetTableName());
-
-    // TODO: move table metainformation in separate entity
-    model->setRelation(1, QSqlRelation("customer_passports", "id", "name"));
-/*
-    model->setHeaderData(0, Qt::Horizontal, QObject::tr("ID"));
-    model->setHeaderData(1, Qt::Horizontal, QObject::tr("OWNER"));
-    model->setHeaderData(2, Qt::Horizontal, QObject::tr("BRAND"));
-    model->setHeaderData(3, Qt::Horizontal, QObject::tr("SERIAL"));
-    model->setHeaderData(3, Qt::Horizontal, QObject::tr("PHOTO"));
-    model->setHeaderData(3, Qt::Horizontal, QObject::tr("NUMBER PHOTO"));
-    */
 }
 

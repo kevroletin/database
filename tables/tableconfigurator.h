@@ -12,21 +12,24 @@ QT_END_NAMESPACE
 #include "cards/cardconfigurator.h"
 #include "dbactionstoolbar.h"
 #include "picturedelegate.h"
+#include "applicationsettings.h"
 
 class TableConfigurator : public QObject
 {
     Q_OBJECT
 public:
     TableConfigurator(DbActionsToolbar* dbActTb, QObject *parent = 0);
-    virtual QString GetTitle() = 0;
-    virtual QString GetTableName() = 0;
+    virtual QString GetTableAlias() { return GetSettings().alias; }
+    virtual QString GetTableName() { return GetSettings().name; }
+    virtual Tables GetTable() = 0;
+    virtual TableSettings& GetSettings() { return globalSettings.Table(GetTable()); }
     QTableView* GetView() { return view; }
     QSqlRelationalTableModel* GetModel() { return model; }
 
 protected:
     virtual void CreateDialog() = 0;
     virtual void CreateCard() = 0;
-    virtual void CreateModel() = 0;
+    virtual void CreateModel();
     virtual void CreateView();
     void Initialize();
 
@@ -52,21 +55,18 @@ class CarsTable : public TableConfigurator
 {
 public:
     CarsTable(DbActionsToolbar* dbActTb, QObject* parent = 0);
-    virtual QString GetTitle() { return "Cars"; }
-    virtual QString GetTableName() { return "cars"; }
+    virtual Tables GetTable() { return TABLE_CARS; }
 
 protected:
     virtual void CreateDialog();
     virtual void CreateCard();
-    virtual void CreateModel();
 };
 
 class CustomersTable : public TableConfigurator
 {
 public:
     CustomersTable(DbActionsToolbar* dbActTb, QObject* parent = 0);
-    virtual QString GetTitle() { return "Customers"; }
-    virtual QString GetTableName() { return "customers"; }
+    virtual Tables GetTable() { return TABLE_CUSTOMERS; }
 
 protected:
     virtual void CreateDialog();

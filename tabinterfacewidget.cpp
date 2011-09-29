@@ -22,7 +22,7 @@ void TabInterfaceWidget::ConnfigureTabs()
 {
     for (int i = 0; i < tables.size(); ++i)
     {
-        addTab(tables[i]->GetView(), tables[i]->GetTitle());
+        addTab(tables[i]->GetView(), tables[i]->GetTableAlias());
     }
 }
 

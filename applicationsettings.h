@@ -17,7 +17,6 @@ enum ControlTypes {
     CONTROL_PHOTO
 };
 
-//            table    name_field
 typedef QPair<QString, QString> Relation;
 
 struct TableSettings
@@ -28,6 +27,7 @@ struct TableSettings
       QVector<int> colonmSizes;
       QHash<int, Relation> relations;
       QVector<ControlTypes> ui_controls;
+      QSet<int> colomnsToDraw;
 };
 
 class ApplicationSettings : public QObject
@@ -35,7 +35,7 @@ class ApplicationSettings : public QObject
     Q_OBJECT
 public:
     explicit ApplicationSettings(QObject *parent = 0);
-    void Table(Tables table);
+    TableSettings& Table(Tables table) { return tableSettings[table]; }
 
 private:
     TableSettings tableSettings[TablesCount];
@@ -48,6 +48,6 @@ public slots:
 
 };
 
-ApplicationSettings globalSettings;
+extern ApplicationSettings globalSettings;
 
 #endif // APPLICATIONSETTINGS_H
