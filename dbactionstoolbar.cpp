@@ -17,10 +17,10 @@ DbActionsToolbar::DbActionsToolbar(QWidget *parent) :
     addAction(addRowAct);
     addAction(deleteRowAct);
     addAction(firstRowAct);
-    addAction(lastRowAct);
-    addAction(nextRowAct);
-    addAction(openCardAct);
     addAction(prevRowAct);
+    addAction(nextRowAct);
+    addAction(lastRowAct);
+    addAction(openCardAct);
     addAction(revertAct);
     addAction(submitAct);
 }

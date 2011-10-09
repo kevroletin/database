@@ -18,7 +18,7 @@ void ApplicationSettings::ConfigureCarsTable()
 {
     TableSettings* t = &tableSettings[TABLE_CARS];
 
-    t->name = tr("cars");
+    t->name = "cars";
     t->alias = tr("Cars");
     t->colonmSizes << 30
                    << 300
@@ -47,7 +47,7 @@ void ApplicationSettings::ConfigureCustomersTable()
 {
     TableSettings* t = &tableSettings[TABLE_CUSTOMERS];
 
-    t->name = tr("customers");
+    t->name = "customers";
     t->alias = tr("Customers");
 
     t->colonmSizes << 40

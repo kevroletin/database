@@ -33,3 +33,5 @@ HEADERS  += mainwindow.h \
     cards/cardconfigurator.h \
     updatablelabel.h \
     applicationsettings.h
+
+TRANSLATIONS += translate.ts
