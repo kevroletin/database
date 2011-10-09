@@ -35,7 +35,8 @@ protected:
         if (index.column() == 0) {
             return Qt::ItemIsSelectable |
                    Qt::ItemIsEnabled;
-        } else if (tableSet.colomnsToDraw.contains(index.column())) {
+        }
+        else if (tableSet.colomnsToDraw.contains(index.column())) {
             return Qt::ItemIsSelectable |
                    Qt::ItemIsEnabled;
         }
@@ -101,5 +102,16 @@ public:
 protected:
     virtual void CreateCard();
 };
+
+class PassportsTable : public TableConfigurator
+{
+public:
+    PassportsTable(DbActionsToolbar* dbActTb, QObject* parent = 0);
+    virtual Tables GetTable() { return TABLE_PASSPORTS; }
+
+protected:
+    virtual void CreateCard();
+};
+
 
 #endif // TABLECONFIGURATOR_H

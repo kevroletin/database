@@ -46,7 +46,7 @@ void TableConfigurator::Initialize()
 {
     CreateModel();
     model->setSort(0, Qt::AscendingOrder);
-    model->setEditStrategy(QSqlTableModel::OnFieldChange);
+    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     model->select();
     CreateView();
     CreateDialog();

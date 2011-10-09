@@ -1,9 +1,8 @@
-
 BEGIN;
 
 CREATE TABLE passports (
   id SERIAL PRIMARY KEY,
-/*  owner_id INTEGER REFERENCES customers(id) NOT NULL, */
+/* owner_id INTEGER REFERENCES customers(id) NOT NULL, */
   first_name TEXT,
   second_name TEXT,
   middle_name TEXT,
@@ -16,20 +15,22 @@ CREATE TABLE passports (
   given_by_unit_code TEXT,
   is_valid BOOLEAN,
   photo BYTEA
-);
-
-CREATE TABLE licenses (
-  id SERIAL PRIMARY KEY,
-/*   owner_id INTEGER REFERENCES customers(id) NOT NULL, */
-  serial_number TEXT NOT NULL,
-  is_valid BOOLEAN NOT NULL DEFAULT(false),
-  photo BYTEA
+/* TODO: Should we store whole passport photo? */
 );
 
 CREATE TABLE customers (
   id SERIAL PRIMARY KEY,
   passport_id INTEGER REFERENCES passports(id),
   license_id INTEGER /* REFERENCES licenses(id) */
+/* TODO: company */
+);
+
+CREATE TABLE licenses (
+  id SERIAL PRIMARY KEY,
+  owner_id INTEGER REFERENCES customers(id) NOT NULL,
+  serial_number TEXT NOT NULL,
+  is_valid BOOLEAN NOT NULL DEFAULT(false),
+  photo BYTEA
 );
 
 CREATE TABLE cars (
@@ -39,6 +40,7 @@ CREATE TABLE cars (
   serial_number VARCHAR(8) NOT NULL,
   photo BYTEA,
   number_photo BYTEA
+/* TODO: can car have many photos? */
 );
 
 CREATE VIEW customer_passports AS(

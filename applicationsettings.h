@@ -4,10 +4,12 @@
 #include <QObject>
 #include <QtCore>
 
-const int TablesCount = 2;
+const int TablesCount = 3;
 enum Tables {
     TABLE_CARS,
-    TABLE_CUSTOMERS
+    TABLE_CUSTOMERS,
+    TABLE_PASSPORTS
+    /* Do not forgot to update TablesCount */
 };
 
 enum ControlTypes {
@@ -44,6 +46,7 @@ private:
     inline Relation rl(QString table, QString name_field);
     void ConfigureCarsTable();
     void ConfigureCustomersTable();
+    void ConfigurePassportsTable();
 
 signals:
 

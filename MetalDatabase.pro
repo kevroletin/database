@@ -22,7 +22,10 @@ SOURCES += main.cpp\
     cards/cardconfigurator.cpp \
     tables/tableconfigurator.cpp \
     applicationsettings.cpp \
-    cards/customerscard.cpp
+    cards/customerscard.cpp \
+    tables/passportstable.cpp \
+    cards/passportscard.cpp \
+    cards/passportscard.cpp
 
 HEADERS  += mainwindow.h \
     tabinterfacewidget.h \
