@@ -60,6 +60,9 @@ QComboBox* CardConfigurator::CreateComboBox(int colIndex, QString& fieldToShow)
 QLineEdit* CardConfigurator::CreateEdit(int colIndex)
 {
     QLineEdit* edit = new QLineEdit;
+    if (colIndex == 0) {
+        edit->setReadOnly(1);
+    }
     mapper->addMapping(edit, colIndex);
     return edit;
 }

@@ -28,6 +28,8 @@ struct TableSettings
       QHash<int, Relation> relations;
       QVector<ControlTypes> ui_controls;
       QSet<int> colomnsToDraw;
+      int rowsHeight;
+      TableSettings() : rowsHeight(0) {}
 };
 
 class ApplicationSettings : public QObject

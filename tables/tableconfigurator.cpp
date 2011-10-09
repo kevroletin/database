@@ -11,7 +11,7 @@ TableConfigurator::TableConfigurator(DbActionsToolbar* _dbActTb_, QObject* paren
 
 void TableConfigurator::CreateView()
 {
-    view = new QTableView;
+    view = new CustomizedTableView;
     view->setModel(model);
     view->setSelectionMode(QAbstractItemView::SingleSelection);
 
@@ -20,12 +20,15 @@ void TableConfigurator::CreateView()
     for (int i = 0; i < GetSettings().colonmSizes.size(); ++i) {
         view->setColumnWidth(i, GetSettings().colonmSizes[i]);
     }
+    if (GetSettings().rowsHeight) {
+        view->verticalHeader()->setDefaultSectionSize(GetSettings().rowsHeight);
+    }
 }
 
 void TableConfigurator::CreateModel()
 {
     TableSettings& s = GetSettings();
-    model = new QSqlRelationalTableModel;
+    model = new CustomTableModel(GetSettings());
     model->setTable(s.name);
 
     foreach (int col, GetSettings().relations.keys()) {
@@ -42,7 +45,8 @@ void TableConfigurator::CreateModel()
 void TableConfigurator::Initialize()
 {
     CreateModel();
-    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    model->setSort(0, Qt::AscendingOrder);
+    model->setEditStrategy(QSqlTableModel::OnFieldChange);
     model->select();
     CreateView();
     CreateDialog();
@@ -122,12 +126,15 @@ void TableConfigurator::PrevRow()
 
 void TableConfigurator::Revert()
 {
+// HACK: since where is no simple api to save editable data in table
+    view->setDisabled( true );
+    view->setDisabled( false );
     model->revertAll();
 }
 
 void TableConfigurator::Submit()
 {
-// :HACK: since where is no simple api to save editable data in table
+// HACK: since where is no simple api to save editable data in table
     view->setDisabled( true );
     view->setDisabled( false );
 

@@ -40,6 +40,7 @@ void ApplicationSettings::ConfigureCarsTable()
                    << CONTROL_PHOTO
                    << CONTROL_PHOTO;
     t->colomnsToDraw << 4 << 5;
+    t->rowsHeight = 50;
 }
 
 void ApplicationSettings::ConfigureCustomersTable()

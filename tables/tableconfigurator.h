@@ -14,6 +14,37 @@ QT_END_NAMESPACE
 #include "picturedelegate.h"
 #include "applicationsettings.h"
 
+class CustomizedTableView : public QTableView
+{
+    Q_OBJECT
+protected:
+};
+
+class CustomTableModel : public QSqlRelationalTableModel
+{
+    Q_OBJECT
+
+public:
+    CustomTableModel(TableSettings& _tableSet_, QObject * parent = 0, QSqlDatabase db = QSqlDatabase()):
+        QSqlRelationalTableModel(parent, db),
+        tableSet(_tableSet_)  { }
+
+protected:
+    Qt::ItemFlags flags (const QModelIndex& index) const
+    {
+        if (index.column() == 0) {
+            return Qt::ItemIsSelectable |
+                   Qt::ItemIsEnabled;
+        } else if (tableSet.colomnsToDraw.contains(index.column())) {
+            return Qt::ItemIsSelectable |
+                   Qt::ItemIsEnabled;
+        }
+        return QSqlRelationalTableModel::flags(index);
+    }
+
+    TableSettings& tableSet;
+};
+
 class TableConfigurator : public QObject
 {
     Q_OBJECT
@@ -35,7 +66,7 @@ protected:
 
     CardConfigurator* card;
     QDialog* dialog;
-    QTableView *view;
+    CustomizedTableView *view;
     DbActionsToolbar* dbActTb;
     QSqlRelationalTableModel* model;
 
