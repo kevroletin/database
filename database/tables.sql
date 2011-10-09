@@ -50,4 +50,10 @@ CREATE VIEW customer_passports AS(
     JOIN passports p ON c.passport_id = p.id
 );
 
+CREATE VIEW whole_passports AS(
+  SELECT p.id, 
+       trim(p.second_name||' '||p.first_name||' '||p.middle_name) as "name" 
+  FROM passports p
+);
+
 COMMIT;

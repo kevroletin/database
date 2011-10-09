@@ -25,7 +25,8 @@ SOURCES += main.cpp\
     cards/customerscard.cpp \
     tables/passportstable.cpp \
     cards/passportscard.cpp \
-    cards/passportscard.cpp
+    tables/licensestable.cpp \
+    cards/licensescard.cpp
 
 HEADERS  += mainwindow.h \
     tabinterfacewidget.h \

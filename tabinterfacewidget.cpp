@@ -75,7 +75,8 @@ void TabInterfaceWidget::RegisterTables()
 {
     carsTable = new CarsTable(dbActTb);
     customersTable = new CustomersTable(dbActTb);
+    licensesTable = new LicensesTable(dbActTb);
     passportsTable = new PassportsTable(dbActTb);
 
-    tables << carsTable << customersTable << passportsTable;
+    tables << carsTable << customersTable << licensesTable << passportsTable;
 }

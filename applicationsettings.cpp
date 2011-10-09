@@ -7,6 +7,7 @@ ApplicationSettings::ApplicationSettings(QObject *parent) :
 {   
     ConfigureCarsTable();
     ConfigureCustomersTable();
+    ConfigureLicensesTable();
     ConfigurePassportsTable();
 }
 
@@ -57,10 +58,32 @@ void ApplicationSettings::ConfigureCustomersTable()
     t->colomnAliases << tr("Id")
                      << tr("Owner")
                      << tr("License");
+    t->relations[1] = rl("whole_passports", "name");
+    t->relations[2] = rl("licenses", "serial_number");
+    t->ui_controls << CONTROL_EDIT
+                   << CONTROL_COMBO_BOX
+                   << CONTROL_COMBO_BOX;
+}
+
+void ApplicationSettings::ConfigureLicensesTable()
+{
+    TableSettings* t = &tableSettings[TABLE_LICENSES];
+
+    t->name = "licenses";
+    t->alias = tr("Licenses");
+
+    t->colomnAliases << tr("Id")
+                     << tr("Owner")
+                     << tr("Serial number")
+                     << tr("Is valid")
+                     << tr("Photo");
     t->relations[1] = rl("customer_passports", "name");
     t->ui_controls << CONTROL_EDIT
                    << CONTROL_COMBO_BOX
-                   << CONTROL_EDIT;
+                   << CONTROL_EDIT
+                   << CONTROL_EDIT
+                   << CONTROL_PHOTO;
+    t->colomnsToDraw << 4;
 }
 
 void ApplicationSettings::ConfigurePassportsTable()

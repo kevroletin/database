@@ -48,7 +48,7 @@ void CardConfigurator::CreateLayout()
 QComboBox* CardConfigurator::CreateComboBox(int colIndex, QString& fieldToShow)
 {
     QComboBox* nameComboBox = new QComboBox;
-    QSqlTableModel *relModel = model->relationModel(1);
+    QSqlTableModel *relModel = model->relationModel(colIndex);
 
     nameComboBox->setModel(relModel);
     nameComboBox->setModelColumn(relModel->fieldIndex(fieldToShow));

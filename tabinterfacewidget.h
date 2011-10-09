@@ -18,6 +18,7 @@ private:
     DbActionsToolbar* dbActTb;
     CarsTable* carsTable;
     CustomersTable* customersTable;
+    LicensesTable* licensesTable;
     PassportsTable* passportsTable;
     QList<TableConfigurator*> tables;
 

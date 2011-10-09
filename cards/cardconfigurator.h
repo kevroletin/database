@@ -55,6 +55,14 @@ public:
     virtual Tables GetTable() { return TABLE_CUSTOMERS; }
 };
 
+class LicensesCard : public CardConfigurator
+{
+    Q_OBJECT
+public:
+    LicensesCard(QSqlRelationalTableModel* model, QObject *parent = 0);
+    virtual Tables GetTable() { return TABLE_LICENSES; }
+};
+
 class PassportsCard : public CardConfigurator
 {
     Q_OBJECT

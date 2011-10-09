@@ -103,6 +103,16 @@ protected:
     virtual void CreateCard();
 };
 
+class LicensesTable : public TableConfigurator
+{
+public:
+    LicensesTable(DbActionsToolbar* dbActTb, QObject* parent = 0);
+    virtual Tables GetTable() { return TABLE_LICENSES; }
+
+protected:
+    virtual void CreateCard();
+};
+
 class PassportsTable : public TableConfigurator
 {
 public:
