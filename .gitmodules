@@ -1,0 +1,3 @@
+[submodule "MetalPassport"]
+	path = MetalPassport
+	url = https://github.com:vkevroletin/database-scan.git
