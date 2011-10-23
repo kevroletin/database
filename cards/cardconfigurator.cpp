@@ -9,6 +9,7 @@ CardConfigurator::CardConfigurator(QSqlRelationalTableModel* _model_, QObject *p
     mapper = new QDataWidgetMapper;
     mapper->setModel(model);
     mapper->setItemDelegate(new QSqlRelationalDelegate(this));
+    mapper->toFirst();
 }
 
 void CardConfigurator::CreateLayout()
@@ -40,7 +41,6 @@ void CardConfigurator::CreateLayout()
         }
     }
 
-    mapper->toFirst();
     return;
 }
 
@@ -61,9 +61,11 @@ QLineEdit* CardConfigurator::CreateEdit(int colIndex)
 {
     QLineEdit* edit = new QLineEdit;
     if (colIndex == 0) {
+        edit->setText(model->data(model->index(mapper->currentIndex(), 0)).toString());
         edit->setReadOnly(1);
+    } else {
+        mapper->addMapping(edit, colIndex);
     }
-    mapper->addMapping(edit, colIndex);
     return edit;
 }
 

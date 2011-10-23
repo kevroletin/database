@@ -1,0 +1,4 @@
+install perl
+install Postgres driver for perl: sudo cpan DBD::Pg
+fix username and password in populate.pl
+run: perl populate.pl

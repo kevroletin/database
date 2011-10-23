@@ -1,5 +1,8 @@
+COUNT=100
 DB=postgres
-DBUSER=postgres
+USER=postgres
+HOST=localhost
+PASSWORD=
 
 build: create_tables populate
 
@@ -8,24 +11,18 @@ help :
 	@echo "valid targets are:"
 	@echo -e "\thelp - for this message"
 	@echo -e "\tcreate_tables - for create tables"
-	@echo -e "\tclear - for delete tables"
+	@echo -e "\tclean - for delete tables"
 	@echo -e "\trebuild - clear then create_tables"
 
 create_tables : 
-	psql -f tables.sql $(DB) $(DBUSER)
+	psql -f tables.sql $(DB) $(USER) --host=$(HOST)
 
-populate : passports customers cars
+.PHONY : populate
+populate :  
+	cd populate && \
+	perl populate.pl $(COUNT) $(DB) $(USER) $(HOST) $(PASSWORD)
 
-passports :
-	psql -f populate/passports.sql $(DB) $(DBUSER)	
+clean : 
+	psql -f clear.sql $(DB) $(USER) --host=$(HOST) 2> /dev/null 
 
-customers :
-	psql -f populate/customers.sql $(DB) $(DBUSER)	
-
-cars :
-	psql -f populate/cars.sql $(DB) $(DBUSER)
-
-clear : 
-	psql -f clear.sql $(DB) $(DBUSER) 2> /dev/null 
-
-rebuild : clear create_tables populate
+rebuild : clean create_tables populate

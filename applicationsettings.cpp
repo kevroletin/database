@@ -22,7 +22,7 @@ void ApplicationSettings::ConfigureCarsTable()
 
     t->name = "cars";
     t->alias = tr("Cars");
-    t->colonmSizes << 30
+    t->colonmSizes << 40
                    << 300
                    << 100
                    << 100
@@ -34,15 +34,15 @@ void ApplicationSettings::ConfigureCarsTable()
                      << tr("Serial number")
                      << tr("Photo")
                      << tr("Number photo");
-    t->relations[1] = rl("customer_passports", "name");
+    t->relations[1] = rl("passports", "name");
     t->ui_controls << CONTROL_EDIT
-                   << CONTROL_COMBO_BOX
+                   << CONTROL_EDIT
                    << CONTROL_EDIT
                    << CONTROL_EDIT
                    << CONTROL_PHOTO
                    << CONTROL_PHOTO;
     t->colomnsToDraw << 4 << 5;
-    t->rowsHeight = 50;
+//    t->rowsHeight = 50;
 }
 
 void ApplicationSettings::ConfigureCustomersTable()
@@ -58,7 +58,7 @@ void ApplicationSettings::ConfigureCustomersTable()
     t->colomnAliases << tr("Id")
                      << tr("Owner")
                      << tr("License");
-    t->relations[1] = rl("whole_passports", "name");
+    t->relations[1] = rl("passports", "name");
     t->relations[2] = rl("licenses", "serial_number");
     t->ui_controls << CONTROL_EDIT
                    << CONTROL_COMBO_BOX
@@ -71,19 +71,17 @@ void ApplicationSettings::ConfigureLicensesTable()
 
     t->name = "licenses";
     t->alias = tr("Licenses");
-
+    t->colonmSizes << 40
+                   << 300;
     t->colomnAliases << tr("Id")
                      << tr("Owner")
                      << tr("Serial number")
-                     << tr("Is valid")
                      << tr("Photo");
-    t->relations[1] = rl("customer_passports", "name");
     t->ui_controls << CONTROL_EDIT
-                   << CONTROL_COMBO_BOX
                    << CONTROL_EDIT
                    << CONTROL_EDIT
                    << CONTROL_PHOTO;
-    t->colomnsToDraw << 4;
+    t->colomnsToDraw << 3;
 }
 
 void ApplicationSettings::ConfigurePassportsTable()
@@ -91,21 +89,20 @@ void ApplicationSettings::ConfigurePassportsTable()
     TableSettings* t = &tableSettings[TABLE_PASSPORTS];
 
     t->name = "passports";
+    t->colonmSizes << 40
+                   << 300;
     t->alias = tr("Passports");
 
     t->colomnAliases << tr("Id")
-                     << tr("First name")
-                     << tr("Second name")
-                     << tr("Middle name")
+                     << tr("Full name")
                      << tr("Serial number")
                      << tr("Issue date")
                      << tr("Birth date")
                      << tr("Birth place")
-                     << tr("Is man")
+                     << tr("Gender")
                      << tr("Given by unit(name)")
                      << tr("Given by unit(code)")
-                     << tr("Is valid")
-                     << tr("Photo");
+                      << tr("Photo");
     t->ui_controls << CONTROL_EDIT
                    << CONTROL_EDIT
                    << CONTROL_EDIT
@@ -115,9 +112,6 @@ void ApplicationSettings::ConfigurePassportsTable()
                    << CONTROL_EDIT
                    << CONTROL_EDIT
                    << CONTROL_EDIT
-                   << CONTROL_EDIT
-                   << CONTROL_EDIT
-                   << CONTROL_EDIT
                    << CONTROL_PHOTO;
-    t->colomnsToDraw << 12;
+    t->colomnsToDraw << 9;
 }

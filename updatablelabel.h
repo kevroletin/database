@@ -28,11 +28,12 @@ public slots:
     void LoadPicture() {
         QString fileName = QFileDialog::getOpenFileName();
         QPixmap pix;
-        pix.load(fileName);
-        QBuffer buff;
-        pix.save(&buff, "PNG");
-        pictureByteArr = buff.data();
-        setPixmap(pix);
+        if (pix.load(fileName)) {
+            QBuffer buff;
+            pix.scaled(QSize(200, 200), Qt::KeepAspectRatio).save(&buff, "PNG");
+            pictureByteArr = buff.data();
+            setPixmap(pix);
+        }
     }
     bool SavePicture(QString) { /* TODO: */ return 0; }
 };

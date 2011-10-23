@@ -25,10 +25,15 @@ void TableConfigurator::CreateView()
     }
 }
 
+CustomTableModel* TableConfigurator::CreateNewModel()
+{
+    return new CustomTableModel(GetSettings());
+}
+
 void TableConfigurator::CreateModel()
 {
     TableSettings& s = GetSettings();
-    model = new CustomTableModel(GetSettings());
+    model = CreateNewModel();
     model->setTable(s.name);
 
     foreach (int col, GetSettings().relations.keys()) {

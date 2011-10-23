@@ -32,6 +32,9 @@ public:
 protected:
     Qt::ItemFlags flags (const QModelIndex& index) const
     {
+        return Qt::ItemIsSelectable |
+               Qt::ItemIsEnabled;
+        // TODO: remove
         if (index.column() == 0) {
             return Qt::ItemIsSelectable |
                    Qt::ItemIsEnabled;
@@ -61,6 +64,7 @@ public:
 protected:
     virtual void CreateDialog();
     virtual void CreateCard() = 0;
+    virtual CustomTableModel* CreateNewModel();
     virtual void CreateModel();
     virtual void CreateView();
     void Initialize();
@@ -113,6 +117,16 @@ protected:
     virtual void CreateCard();
 };
 
+
+class PassportsModel : public CustomTableModel
+{
+    Q_OBJECT
+public:
+    PassportsModel(TableSettings& _tableSet_, QObject * parent = 0, QSqlDatabase db = QSqlDatabase());
+    virtual QVariant data(const QModelIndex &item, int role) const;
+    virtual bool setData(const QModelIndex &index, const QVariant &value, int role);
+};
+
 class PassportsTable : public TableConfigurator
 {
 public:
@@ -121,6 +135,7 @@ public:
 
 protected:
     virtual void CreateCard();
+    virtual CustomTableModel* CreateNewModel() { return new PassportsModel(GetSettings()); }
 };
 
 
