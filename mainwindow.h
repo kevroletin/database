@@ -36,8 +36,14 @@ private:
     void CreateActions();
     void CreateMenus();
     void CreateToolbar();
+    void ReadSettings();
+    void WriteSettings();
 
     TabInterfaceWidget* tabInterface;
+    QString userName;
+    QString password;
+    QString databaseName;
+    QString hostName;
 };
 
 #endif // MAINWINDOW_H

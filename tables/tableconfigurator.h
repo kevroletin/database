@@ -67,6 +67,7 @@ protected:
     virtual CustomTableModel* CreateNewModel();
     virtual void CreateModel();
     virtual void CreateView();
+    virtual void CustomizeView();
     void Initialize();
 
     CardConfigurator* card;
@@ -83,6 +84,7 @@ public slots:
     void NextRow();
     void OpenDialog();
     void PrevRow();
+    void Refresh();
     void Revert();
     void Submit();
 };
@@ -138,5 +140,54 @@ protected:
     virtual CustomTableModel* CreateNewModel() { return new PassportsModel(GetSettings()); }
 };
 
+class CompaniesTable : public TableConfigurator
+{
+public:
+    CompaniesTable(DbActionsToolbar* dbActTb, QObject* parent = 0);
+    virtual Tables GetTable() { return TABLE_COMPANIES; }
+
+protected:
+    virtual void CreateCard();
+};
+
+class MetalCostTable : public TableConfigurator
+{
+public:
+    MetalCostTable(DbActionsToolbar* dbActTb, QObject* parent = 0);
+    virtual Tables GetTable() { return TABLE_METAL_COSTS; }
+
+protected:
+    virtual void CreateCard();
+};
+
+class MetalDealTable : public TableConfigurator
+{
+public:
+    MetalDealTable(DbActionsToolbar* dbActTb, QObject* parent = 0);
+    virtual Tables GetTable() { return TABLE_METAL_DEALS; }
+
+protected:
+    virtual void CreateCard();
+};
+
+class MetalItemsTable : public TableConfigurator
+{
+public:
+    MetalItemsTable(DbActionsToolbar* dbActTb, QObject* parent = 0);
+    virtual Tables GetTable() { return TABLE_METAL_ITEMS; }
+
+protected:
+    virtual void CreateCard();
+};
+
+class MetalMarkTable : public TableConfigurator
+{
+public:
+    MetalMarkTable(DbActionsToolbar* dbActTb, QObject* parent = 0);
+    virtual Tables GetTable() { return TABLE_METAL_MARKS; }
+
+protected:
+    virtual void CreateCard();
+};
 
 #endif // TABLECONFIGURATOR_H

@@ -11,6 +11,7 @@ DbActionsToolbar::DbActionsToolbar(QWidget *parent) :
     nextRowAct = new QAction(tr("Next row"), this);
     openCardAct = new QAction(tr("Open card"), this);
     prevRowAct = new QAction(tr("Prev row"), this);
+    refreshAct = new QAction(tr("Refresh"), this);
     revertAct = new QAction(tr("Revert"), this);
     submitAct = new QAction(tr("Submit"), this);
 
@@ -21,6 +22,7 @@ DbActionsToolbar::DbActionsToolbar(QWidget *parent) :
     addAction(nextRowAct);
     addAction(lastRowAct);
     addAction(openCardAct);
+    addAction(refreshAct);
     addAction(revertAct);
     addAction(submitAct);
 }

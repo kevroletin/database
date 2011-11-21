@@ -20,6 +20,11 @@ private:
     CustomersTable* customersTable;
     LicensesTable* licensesTable;
     PassportsTable* passportsTable;
+    CompaniesTable* companiesTable;
+    MetalCostTable* metalCostTable;
+    MetalDealTable* metalDealTable;
+    MetalItemsTable* metalItemsTable;
+    MetalMarkTable* metalMarkTable;
     QList<TableConfigurator*> tables;
 
 public slots:

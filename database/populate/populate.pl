@@ -68,12 +68,13 @@ SQL
 
 sub gen_manu_companies {
     my ($count) = @_;
-    my $sth = $dbh->prepare('INSERT INTO companies(name, adress)' .
+    my $sth = $dbh->prepare('INSERT INTO companies(name, legal_adress)' .
                             'VALUES (?, ?)');
     my $comp_cnt = @Constants::companies;
     $count = $comp_cnt unless defined $count;
     for my $i (0 .. $count) {
-        $sth->execute($Constants::companies[$i % $comp_cnt],
+        $sth->execute("Company#$i",
+                      #$Constants::companies[$i % $comp_cnt],
                       Rnd::adress());
     }
 }
@@ -81,11 +82,12 @@ sub gen_manu_companies {
 {
     my $last_company = 0;
 sub gen_one_company {
-    my $sth = $dbh->prepare('INSERT INTO companies (name, adress)' .
+    my $sth = $dbh->prepare('INSERT INTO companies (name, legal_adress)' .
                             'VALUES (?, ?) RETURNING id');
-    $sth->execute($last_company,
+    $sth->execute("Company#$last_company",
                   Rnd::adress());
-    $last_company = ($last_company + 1) % @Const::companies;
+    $last_company++;
+#    $last_company = ($last_company + 1) % @Const::companies;
     $sth->fetchrow_array();
 }
 }

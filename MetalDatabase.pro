@@ -26,7 +26,17 @@ SOURCES += main.cpp\
     tables/passportstable.cpp \
     cards/passportscard.cpp \
     tables/licensestable.cpp \
-    cards/licensescard.cpp
+    cards/licensescard.cpp \
+    tables/companiestable.cpp \
+    tables/metalcosttable.cpp \
+    tables/metalitemstable.cpp \
+    tables/metalmarktable.cpp \
+    tables/metaldealtable.cpp \
+    cards/metalmarkcard.cpp \
+    cards/metaldealcard.cpp \
+    cards/companiescard.cpp \
+    cards/metalcoastcard.cpp \
+    cards/metalitemscard.cpp
 
 HEADERS  += mainwindow.h \
     tabinterfacewidget.h \
@@ -39,3 +49,7 @@ HEADERS  += mainwindow.h \
     applicationsettings.h
 
 TRANSLATIONS += translate.ts
+
+INCLUDEPATH += .
+
+OTHER_FILES +=

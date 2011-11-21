@@ -3,10 +3,16 @@
 
 #include <QObject>
 #include <QtCore>
+#include <QSettings>
 
-const int TablesCount = 4;
+const int TablesCount = 9;
 enum Tables {
     TABLE_CARS,
+    TABLE_COMPANIES,
+    TABLE_METAL_COSTS,
+    TABLE_METAL_DEALS,
+    TABLE_METAL_ITEMS,
+    TABLE_METAL_MARKS,
     TABLE_CUSTOMERS,
     TABLE_LICENSES,
     TABLE_PASSPORTS
@@ -39,7 +45,9 @@ class ApplicationSettings : public QObject
 {
     Q_OBJECT
 public:
-    explicit ApplicationSettings(QObject *parent = 0);
+    QSettings iniSettings;
+
+    ApplicationSettings(QObject *parent = 0);
     TableSettings& Table(Tables table) { return tableSettings[table]; }
 
 private:
@@ -49,6 +57,11 @@ private:
     void ConfigureCustomersTable();
     void ConfigureLicensesTable();
     void ConfigurePassportsTable();
+    void ConfigureCompaniesTable();
+    void ConfigureMetalCostTable();
+    void ConfigureMetalDealTable();
+    void ConfigureMetalItemsTable();
+    void ConfigureMetalMarkTable();
 
 signals:
 

@@ -13,6 +13,11 @@ void TableConfigurator::CreateView()
 {
     view = new CustomizedTableView;
     view->setModel(model);
+    CustomizeView();
+}
+
+void TableConfigurator::CustomizeView()
+{
     view->setSelectionMode(QAbstractItemView::SingleSelection);
 
     view->setItemDelegate(new PictureDelegate(GetSettings().colomnsToDraw, view));
@@ -40,6 +45,9 @@ void TableConfigurator::CreateModel()
         model->setRelation(col, QSqlRelation(s.relations[col].first, /* table name */
                                              "id",
                                              s.relations[col].second /* field to show */));
+        int i = model->relationModel(col)->fieldIndex(s.relations[col].second);
+        model->relationModel(col)->setSort(i, Qt::AscendingOrder);
+        model->relationModel(col)->sort(i, Qt::AscendingOrder);
     }
 
     for (int i = 0; i < s.colomnAliases.size(); ++i) {
@@ -127,6 +135,17 @@ void TableConfigurator::PrevRow()
     } else {
         view->setCurrentIndex(model->index(index, 0, QModelIndex()));
     }
+}
+
+void TableConfigurator::Refresh()
+{
+    model->select();
+    for (int i = 0; i < model->columnCount(); ++i) {
+        if (model->relationModel(i)) {
+            model->relationModel(i)->select();
+        }
+    }
+    CustomizeView();
 }
 
 void TableConfigurator::Revert()

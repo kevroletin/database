@@ -19,8 +19,27 @@ CREATE TABLE passports (
 
 CREATE TABLE companies (
   id SERIAL PRIMARY KEY,
-  name TEXT,
-  adress TEXT
+  name TEXT DEFAULT 'Частное лицо',
+  INN TEXT,
+  KPP TEXT,
+  legal_adress TEXT,
+  actual_adress TEXT,
+  settlement_account TEXT,
+  bank TEXT,
+  correspondent_account TEXT,
+  phone TEXT,
+  BIK TEXT
+/*
+Название (по-умолчанию Частное Лицо)
+ИНН
+КПП
+Юридический адрес
+Фактический адрес
+Расчетный счет
+Банк
+Корреспондентский счет
+БИК
+Телефон */
 );
 
 CREATE TABLE licenses (
@@ -51,29 +70,39 @@ CREATE TABLE cars (
 /* TODO: can car have many photos? */
 );
 
-CREATE TABLE metal_deal (
+CREATE TABLE metal_deals (
   id SERIAL PRIMARY KEY,
+  customer_id INTEGER REFERENCES customers(id),
   time TIMESTAMP,
 /*  data DATE DEFAULT(current_date),
   time TIME DEFAULT(current_time), */
   given_money FLOAT
 );
 
+CREATE TABLE metal_costs (
+  id SERIAL PRIMARY KEY,
+  value NUMERIC(16, 4),
+  creation_date DATE DEFAULT(current_date)
+);
+
+CREATE TABLE metal_marks (
+  id SERIAL PRIMARY KEY,
+  name TEXT,
+  coast_id INTEGER REFERENCES metal_costs(id),
+  is_color BOOLEAN
+);
+
 CREATE TABLE metal_items (
   id SERIAL PRIMARY KEY,
+  deal_id INTEGER REFERENCES metal_deals(id),
+  coast_id INTEGER REFERENCES metal_costs(id),
+  mark_id INTEGER REFERENCES metal_marks(id),
   weight FLOAT,
   radioactivity FLOAT 
 );
 
-CREATE TABLE metal_mark (
-  id SERIAL PRIMARY KEY,
-  name TEXT,
-  is_color BOOLEAN
-);
-
-CREATE TABLE metal_cost (
-  id SERIAL PRIMARY KEY,
-  value NUMERIC(16, 4)
-);
+CREATE VIEW customer_passports AS 
+  SELECT c.id, p.name FROM customers c 
+    JOIN passports p ON c.passport_id = p.id;
 
 COMMIT;

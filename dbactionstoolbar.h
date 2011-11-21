@@ -21,6 +21,7 @@ public:
     QAction* openCardAct;
     QAction* prevRowAct;
     QAction* revertAct;
+    QAction* refreshAct;
     QAction* submitAct;
 
 signals:

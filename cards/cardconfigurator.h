@@ -71,5 +71,45 @@ public:
     virtual Tables GetTable() { return TABLE_PASSPORTS; }
 };
 
+class CompaniesCard : public CardConfigurator
+{
+    Q_OBJECT
+public:
+    CompaniesCard(QSqlRelationalTableModel* model, QObject *parent = 0);
+    virtual Tables GetTable() { return TABLE_COMPANIES; }
+};
+
+class MetalCostCard : public CardConfigurator
+{
+    Q_OBJECT
+public:
+    MetalCostCard(QSqlRelationalTableModel* model, QObject *parent = 0);
+    virtual Tables GetTable() { return TABLE_METAL_COSTS; }
+};
+
+class MetalDealCard : public CardConfigurator
+{
+    Q_OBJECT
+public:
+    MetalDealCard(QSqlRelationalTableModel* model, QObject *parent = 0);
+    virtual Tables GetTable() { return TABLE_METAL_DEALS; }
+};
+
+class MetalItemsCard : public CardConfigurator
+{
+    Q_OBJECT
+public:
+    MetalItemsCard(QSqlRelationalTableModel* model, QObject *parent = 0);
+    virtual Tables GetTable() { return TABLE_METAL_ITEMS; }
+};
+
+class MetalMarkCard : public CardConfigurator
+{
+    Q_OBJECT
+public:
+    MetalMarkCard(QSqlRelationalTableModel* model, QObject *parent = 0);
+    virtual Tables GetTable() { return TABLE_METAL_MARKS; }
+};
+
 
 #endif // CARDCONFIGURATOR_H

@@ -60,6 +60,10 @@ void TabInterfaceWidget::ConnectDbActions(int table_index)
     connect(dbActTb->openCardAct, SIGNAL(triggered()),
             currentTable, SLOT(OpenDialog()));
 
+    disconnect(dbActTb->refreshAct, 0, previousTable, 0);
+    connect(dbActTb->refreshAct, SIGNAL(triggered()),
+            currentTable, SLOT(Refresh()));
+
     disconnect(dbActTb->revertAct, 0, previousTable, 0);
     connect(dbActTb->revertAct, SIGNAL(triggered()),
             currentTable, SLOT(Revert()));
@@ -77,6 +81,13 @@ void TabInterfaceWidget::RegisterTables()
     customersTable = new CustomersTable(dbActTb);
     licensesTable = new LicensesTable(dbActTb);
     passportsTable = new PassportsTable(dbActTb);
+    companiesTable = new CompaniesTable(dbActTb);
+    metalCostTable = new MetalCostTable(dbActTb);
+    metalDealTable = new MetalDealTable(dbActTb);
+    metalItemsTable = new MetalItemsTable(dbActTb);
+    metalMarkTable = new MetalMarkTable(dbActTb);
 
-    tables << carsTable << customersTable << licensesTable << passportsTable;
+    tables << carsTable << customersTable << licensesTable << passportsTable <<
+              companiesTable << metalCostTable << metalDealTable << metalItemsTable <<
+              metalMarkTable;
 }
